@@ -4,6 +4,8 @@ function popup(id){
     document.getElementById("fixed").style.height = "100%"
     document.getElementById(id).style.display = "block"
 }
+new Audio("./Ok.mp3")
+new Audio("./No.mp3")
 function unpopup(id){
     document.getElementById("fixed").style.backgroundColor = "rgba(0, 0, 0, 0)"
     document.getElementById("fixed").style.width = "0%"
@@ -92,9 +94,9 @@ function key_press(a){
         }else{
             if (pi[answer] == a){
                 score += 1
-                Ok.play()
+                new Audio("./Ok.mp3").play()
             }else{
-                No.play()
+                new Audio("./No.mp3").play()
             }
             if (count == 4){
                 if (score > localStorage.getItem("hight_score_Random")){
