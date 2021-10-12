@@ -33,8 +33,9 @@ setInterval(() => {
         document.getElementById("random-contents").style.opacity = "0"
     }
     if (start_bool == true){
+        document.getElementById("press9").style.display = "none"
         if (mode == "1"){
-            document.getElementById("timer").innerText = "No." + (score + 1)
+            document.getElementById("timer").innerText = time_for_string(new Date() - start_time) + "\nNo." + (score + 1)
         }else{
             if (count == 0){
                 document.getElementById("timer").innerText = time_for_string(new Date() - start_time) + "\nNo." + (answer + 1) + "\nscore:" + score
@@ -44,11 +45,14 @@ setInterval(() => {
         }
     }else if (start_bool == null){
         if (mode == "1"){
-            document.getElementById("timer").innerText = "score:" + (score)
+            document.getElementById("press9").style.display = "block"
+            document.getElementById("timer").innerText = time_for_string(time) + "\nscore:" + (score)
         }else{
+            document.getElementById("press9").style.display = "block"
             document.getElementById("timer").innerText = time_for_string(time) + "\nscore:" + score
         }
     }else{
+        document.getElementById("press9").style.display = "none"
         if (get_radio("tekitou") == "2"){
             document.getElementById("timer").innerText = "00:00.000"
         }else{
@@ -85,6 +89,7 @@ function key_press(a){
                     }
                     new Audio("./No.mp3").play()
                     start_bool = null
+                    time = new Date() - start_time
                 }
                 answer = pi[score]
             }else{
