@@ -37,19 +37,59 @@
                 color: black;
             }
         }
-        body{
+        @keyframes on_hover2{
+            0%{
+                background-color: white;
+                color: black;
+            }
+            100%{
+                background-color: black;
+                color: white;
+            }
+        }
+        @keyframes out_hover2{
+            0%{
+                background-color: black;
+                color: white;
+            }
+            100%{
+                background-color: white;
+                color: black;
+            }
+        }
+        @keyframes guide2{
+            0%{
+                color: white;
+            }
+            50%{
+                color: black;
+            }
+            100%{
+                color: white;
+            }
+        }
+        body.lightmode{
+            background-color: white;
+        }
+        body.darkmode{
             background-color: black;
         }
         input[type="radio"]{
             display: none;
         }
-        input[type="radio"]:checked + label{
+        input[type="radio"]:checked + label.darkmode{
+            background-color: black;
+            color: white;
+            animation-name: on_hover2;
+            animation-duration: 0.5s;
+        }
+        input[type="radio"]:checked + label.lightmode{
             background-color: white;
             color: black;
             animation-name: on_hover;
             animation-duration: 0.5s;
         }
-        .label{
+        .label.lightmode{
             color: white;
             height: auto;
             border-radius: 10px;
@@ -61,7 +101,22 @@
                 -ms-user-select: none;
                     user-select: none;
         }
-        a.button{
+        .label.darkmode{
+            color: black;
+            height: auto;
+            border-radius: 10px;
+            padding: 10px;
+            animation-name: out_hover2;
+            animation-duration: 0.5s;
+            -webkit-user-select: none;
+               -moz-user-select: none;
+                -ms-user-select: none;
+                    user-select: none;
+        }
+        .label:hover{
+            cursor: pointer;
+        }
+        a.button.lightmode{
             color: black;
             background-color: white;
             padding: 10px;
@@ -71,6 +126,45 @@
                -moz-user-select: none;
                 -ms-user-select: none;
                     user-select: none;
+        }
+        a.button.darkmode{
+            color: white;
+            background-color: black;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 20pt;
+            -webkit-user-select: none;
+               -moz-user-select: none;
+                -ms-user-select: none;
+                    user-select: none;
+        }
+        a.button:hover{
+            cursor: pointer;
+        }
+        a.button-2.lightmode{
+            color: white;
+            background-color: black;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 20pt;
+            -webkit-user-select: none;
+               -moz-user-select: none;
+                -ms-user-select: none;
+                    user-select: none;
+        }
+        a.button-2.darkmode{
+            color: black;
+            background-color: white;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 20pt;
+            -webkit-user-select: none;
+               -moz-user-select: none;
+                -ms-user-select: none;
+                    user-select: none;
+        }
+        a.button-2:hover{
+            cursor: pointer;
         }
         .fixed{
             position:fixed;
@@ -82,40 +176,92 @@
                 -ms-user-select: none;
                     user-select: none;
         }
-        .popup{
+        .fixed2{
+            position:fixed;
+            width: 100%;
+            height: 100%;
+            -webkit-user-select: none;
+               -moz-user-select: none;
+                -ms-user-select: none;
+                    user-select: none;
+                    z-index: -1;
+        }
+        .popup.lightmode{
             background-color: white;
             border-radius: 10px;
             display: block;
             padding: 10px;
             width: 50%;
             height: 85%;
-            margin-left: auto;
-            margin-right: auto;
+            position: absolute;
+            top: 5%;
+            bottom: 10%;
+            left: 25%;
+            right: 25%;
+            display: none;
+        }
+        .popup.darkmode{
+            background-color: black;
+            border-radius: 10px;
+            display: block;
+            padding: 10px;
+            width: 50%;
+            height: 85%;
+            position: absolute;
+            top: 5%;
+            bottom: 10%;
+            left: 25%;
+            right: 25%;
             display: none;
         }
         .popup-main{
             width: 100%;
             height: 90%;
         }
+        .popup-main.darkmode{
+            color: white;
+        }
+        .popup-main.lightmode{
+            color: black;
+        }
         .key{
             width: 50px;
             height: 50px;
         }
-        #question{
-            color: white;
+        #question.lightmode{
+            color: black;
             background: -webkit-linear-gradient(0deg,black,white);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-size:x-large;
         }
-        .guidance{
+        #question.darkmode{
+            color: white;
+            background: -webkit-linear-gradient(0deg,white,black);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size:x-large;
+        }
+        .guidance.lightmode{
+            animation-name: guide2;
+            animation-duration: 1s;
+            animation-iteration-count: infinite;
+        }
+        .guidance.darkmode{
             animation-name: guide;
             animation-duration: 1s;
             animation-iteration-count: infinite;
         }
+        h1.lightmode{
+            color: white;
+        }
+        h1.darkmode{
+            color: black;
+        }
     </style>
 </head>
 <body style="text-align: center;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;">
+    <div class="fixed2" id="fixed2"></div>
     <div class="fixed" id="fixed" style="top: 0%;left: 0%;z-index: 9999999;">
         <div class="popup" id="history">
             <div class="popup-main" style="overflow-y: scroll;">
@@ -123,7 +269,7 @@
                 <span>
                     Add firebase ranking service.
                 </span>
-                <h2>version beta 1.1.002 and later(schedule)</h2>
+                <h2>version beta 1.1.003</h2>
                 <span>
                     add Light mode
                 </span>
@@ -150,21 +296,22 @@
                     create Game!!
                 </span>
             </div><br>
-            <a class="button" style="color: white;background-color: black;" onclick="unpopup('history')">&nbsp;&nbsp;&nbsp;&nbsp;Close&nbsp;&nbsp;&nbsp;&nbsp;</a>
+            <a class="button-2" onclick="unpopup('history')">&nbsp;&nbsp;&nbsp;&nbsp;Close&nbsp;&nbsp;&nbsp;&nbsp;</a>
         </div>
         <div class="popup" id="clear">
             <div class="popup-main" style="overflow-y: scroll;">
                 <h2>Oh,my god!<br>You score is 10000!!</h2>
             </div><br>
-            <a class="button" style="color: white;background-color: black;" onclick="unpopup('clear')">&nbsp;&nbsp;&nbsp;&nbsp;Close&nbsp;&nbsp;&nbsp;&nbsp;</a>
+            <a class="button-2" onclick="unpopup('clear')">&nbsp;&nbsp;&nbsp;&nbsp;Close&nbsp;&nbsp;&nbsp;&nbsp;</a>
         </div>
     </div>
-    <header>
-        <h1 style="color: white;">Speed Pi Beta</h1>
+    <header style="z-index: 1;">
+        <h1 >Speed Pi Beta</h1>
         <input type="radio" name="tekitou" value="1" id="Endress" checked>
         <label for="Endress" class="label">Endress number</label>
         <input type="radio" name="tekitou" value="2" id="Random">
-        <label for="Random" class="label">Random number</label><br><br>
+        <label for="Random" class="label">Random number</label>
+        <a class="button" style="font-size: 15px;" onclick="switch_mode()">change dark mode and light mode</a><br><br>
         <div id="random-contents" style="opacity:0">
             <input type="radio" name="mode" value="50" id="Beginner" checked>
             <label for="Beginner" class="label">~50</label>
@@ -175,10 +322,10 @@
             <input type="radio" name="mode" value="10000" id="God">
             <label for="God" class="label">~10000</label>
         </div>
-        <h1 id="timer" style="color: white;">00:00.000</h1>
+        <h1 id="timer">00:00.000</h1>
         <a id="question" style="color: white;"></a>
     </header>
-    <main>
+    <main style="z-index: 1;">
         <a class="button" onclick="start()" id="button-start">start</a><br><br><br><br>
         <div id="key_boad" style="position: absolute;top: 60%;left: 0;right: 0;z-index: 1;">
             <a class="button key" onclick="key_press(1)">&nbsp;1&nbsp;</a>

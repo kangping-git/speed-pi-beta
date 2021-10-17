@@ -151,3 +151,22 @@ function start(){
 function getRandomArbitrary(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
 }
+function switch_mode(){
+    for (var i = 0;i < document.all.length;++i){
+        if ((document.all[i].className).indexOf("darkmode") != -1){
+            document.all[i].className = document.all[i].className.replace("darkmode","lightmode")
+        }else if ((document.all[i].className).indexOf("lightmode") != -1){
+            document.all[i].className = document.all[i].className.replace("lightmode","darkmode")
+        }else{
+            document.all[i].classList.add("lightmode")
+        }
+    }
+    if ((document.body.className).indexOf("darkmode") != -1){
+        document.body.style.backgroundColor = "white"
+    }else if ((document.body.className).indexOf("lightmode") != -1){
+        document.body.style.backgroundColor = "black"
+    }else{
+        document.body.classList.add("lightmode")
+    }
+}
+switch_mode()
