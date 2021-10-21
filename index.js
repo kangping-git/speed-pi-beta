@@ -33,6 +33,7 @@ setInterval(() => {
         document.getElementById("random-contents").style.opacity = "0"
     }
     if (start_bool == true){
+        document.getElementById("uploads").style.display = "none"
         document.getElementById("press9").style.display = "none"
         if (mode == "1"){
             document.getElementById("timer").innerText = time_for_string(new Date() - start_time) + "\nNo." + (score + 1)
@@ -46,12 +47,15 @@ setInterval(() => {
     }else if (start_bool == null){
         if (mode == "1"){
             document.getElementById("press9").style.display = "block"
+            document.getElementById("uploads").style.display = "block"
             document.getElementById("timer").innerText = time_for_string(time) + "\nscore:" + (score)
         }else{
             document.getElementById("press9").style.display = "block"
+            document.getElementById("uploads").style.display = "none"
             document.getElementById("timer").innerText = time_for_string(time) + "\nscore:" + score
         }
     }else{
+        document.getElementById("uploads").style.display = "none"
         document.getElementById("press9").style.display = "none"
         if (get_radio("tekitou") == "2"){
             document.getElementById("timer").innerText = "00:00.000"
@@ -169,4 +173,32 @@ function switch_mode(){
         document.body.classList.add("lightmode")
     }
 }
+function separate(num){
+    num = String(num);
+    var len = num.length;
+    if(len > 20){
+        return separate(num.substring(0,len-20))+'<br>'+num.substring(len-20);
+    } else {
+        return num;
+    }
+}
+const config = {
+    apiKey: "AIzaSyDZsD6Lspm6PJ9VvCd3ReJe5T6ex36nRc8",
+    authDomain: "speed-pi-database.firebaseapp.com",
+    databaseURL: "https://speed-pi-database-default-rtdb.firebaseio.com",
+    projectId: "speed-pi-database",
+    storageBucket: "speed-pi-database.appspot.com",
+    messagingSenderId: "744730019739",
+    appId: "1:744730019739:web:88c0a38a65c3badbff033e",
+    measurementId: "G-H0PVNZSRXX"
+};
+firebase.initializeApp(config);
+var rank = firebase.database().ref().child("rank")
+function upload(){
+    rank.push({name:document.getElementById("your_name").innerText,score:score,time:new Date().toUTCString()})
+    start_bool = false
+    document.getElementById("button-start").style.display = "inline"
+    document.getElementById("question").innerHTML = ""
+}
 switch_mode()
+document.getElementById("pis").innerHTML = separate(pi)
