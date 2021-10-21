@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ranking</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">         
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-database.js"></script>
+    <link rel="shortcut icon" href="./favicon.ico">
+</head>
+<body style="text-align: center;">
+    <h2>speed pi beta ranking</h2>
+    <table>
+        <thead>
+            <tr><td>Name</td><td>Score</td><td>time</td></tr>
+        </thead>
+        <tbody id="body"></tbody>
+    </table>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        const config = {
+            apiKey: "AIzaSyDZsD6Lspm6PJ9VvCd3ReJe5T6ex36nRc8",
+            authDomain: "speed-pi-database.firebaseapp.com",
+            databaseURL: "https://speed-pi-database-default-rtdb.firebaseio.com",
+            projectId: "speed-pi-database",
+            storageBucket: "speed-pi-database.appspot.com",
+            messagingSenderId: "744730019739",
+            appId: "1:744730019739:web:88c0a38a65c3badbff033e",
+            measurementId: "G-H0PVNZSRXX"
+        };
+        firebase.initializeApp(config);
+        var data = []
+        var rank = firebase.database().ref().child("rank")
+        rank.on("child_added",(val) => {
+            data.push(val.val())
+            data = data.sort((a,b) => {
+                return b.score - a.score
+            })
+            var html = ""
+            for (var i in data){
+                html += `<tr><td>${data[i].name}</td><td>${data[i].score}</td><td>${data[i].time}</td></tr>`
+            }
+            document.getElementById("body").innerHTML = html
+        })
+    </script>
+</body>
+</html>
