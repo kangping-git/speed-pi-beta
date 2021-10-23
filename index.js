@@ -4,8 +4,8 @@ function popup(id){
     document.getElementById("fixed").style.height = "100%"
     document.getElementById(id).style.display = "block"
 }
-new Audio("./Ok.mp3")
-new Audio("./No.mp3")
+new Audio("./Ok.mp3").load()
+new Audio("./No.mp3").load()
 function unpopup(id){
     document.getElementById("fixed").style.backgroundColor = "rgba(0, 0, 0, 0)"
     document.getElementById("fixed").style.width = "0%"
@@ -35,6 +35,7 @@ setInterval(() => {
     if (start_bool == true){
         document.getElementById("uploads").style.display = "none"
         document.getElementById("press9").style.display = "none"
+        document.getElementById("buttons").style.display = "none"
         if (mode == "1"){
             document.getElementById("timer").innerText = time_for_string(new Date() - start_time) + "\nNo." + (score + 1)
         }else{
@@ -48,6 +49,7 @@ setInterval(() => {
         if (mode == "1"){
             document.getElementById("press9").style.display = "block"
             document.getElementById("uploads").style.display = "block"
+            document.getElementById("buttons").style.display = "block"
             document.getElementById("timer").innerText = time_for_string(time) + "\nscore:" + (score)
         }else{
             document.getElementById("press9").style.display = "block"
@@ -56,6 +58,7 @@ setInterval(() => {
         }
     }else{
         document.getElementById("uploads").style.display = "none"
+        document.getElementById("buttons").style.display = "block"
         document.getElementById("press9").style.display = "none"
         if (get_radio("tekitou") == "2"){
             document.getElementById("timer").innerText = "00:00.000"
@@ -176,9 +179,9 @@ function switch_mode(){
 function separate(num){
     num = String(num);
     var len = num.length;
-    if(len > 20){
+    if (len > 20){
         return separate(num.substring(0,len-20))+'<br>'+num.substring(len-20);
-    } else {
+    }else{
         return num;
     }
 }
@@ -195,7 +198,7 @@ const config = {
 firebase.initializeApp(config);
 var rank = firebase.database().ref().child("rank")
 function upload(){
-    rank.push({name:document.getElementById("your_name").innerText,score:score,time:new Date().toUTCString()})
+    rank.push({name:document.getElementById("your_name").innerText,score:score,time:new Date().toUTCString(),timer:time})
     start_bool = false
     document.getElementById("button-start").style.display = "inline"
     document.getElementById("question").innerHTML = ""

@@ -13,14 +13,32 @@
 </head>
 <body style="text-align: center;">
     <h2>speed pi beta ranking</h2>
-    <table>
+    <table style="width: 75%;margin-left: auto;margin-right: auto;">
         <thead>
-            <tr><td>Name</td><td>Score</td><td>time</td></tr>
+            <tr><td>Name</td><td>Score</td><td>clear time</td><td>several digits per second</td><td>time</td></tr>
         </thead>
         <tbody id="body"></tbody>
     </table>
+    <ul class="pagination">
+        <li id="left" onclick="change_hash(0)"><a><i class="material-icons">chevron_left</i></a></li>
+        <a id="pagination_main"></a>
+        <li id="right" onclick="change_hash(1)"><a><i class="material-icons">chevron_right</i></a></li>
+    </ul>
+    <a class="button" href="./speed-Pi.html" target="_blank" rel="noopenar">speed pi</a>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
+        function change_hash(mode){
+            if (mode == 0){
+                if (Number(location.hash.replace("#","")) != 1){
+                    location.hash = Number(location.hash.replace("#",""))-1
+                }
+            }
+            if (mode == 1){
+                if (Number(location.hash.replace("#","")) != Math.ceil(data.length / 10)){
+                    location.hash = Number(location.hash.replace("#",""))+1
+                }
+            }
+        }
         const config = {
             apiKey: "AIzaSyDZsD6Lspm6PJ9VvCd3ReJe5T6ex36nRc8",
             authDomain: "speed-pi-database.firebaseapp.com",
@@ -34,16 +52,46 @@
         firebase.initializeApp(config);
         var data = []
         var rank = firebase.database().ref().child("rank")
+        if (!location.hash){
+            location.hash = 1
+        }
         rank.on("child_added",(val) => {
             data.push(val.val())
+            change_html()
+        })
+        function change_html(){
             data = data.sort((a,b) => {
                 return b.score - a.score
             })
             var html = ""
             for (var i in data){
-                html += `<tr><td>${data[i].name}</td><td>${data[i].score}</td><td>${data[i].time}</td></tr>`
+                if ((Number(location.hash.replace("#",""))-1) * 10 < i && i <= (Number(location.hash.replace("#",""))) * 10){
+                    html += `<tr><td>${data[i].name}</td><td>${data[i].score}</td><td>${data[i].timer}</td><td>${(data[i].score/data[i].timer).toFixed(2)}</td><td>${new Date(data[i].time).getFullYear() + "/" + ("0" + (new Date(data[i].time).getMonth() + 1)).slice(-2) + "/" + ("0" + (new Date(data[i].time).getDate())).slice(-2) + " " + ("0" + (new Date(data[i].time).getHours())).slice(-2) + ":" + ("0" + (new Date(data[i].time).getMinutes())).slice(-2) + ":" + ("0" + (new Date(data[i].time).getSeconds())).slice(-2)}</td></tr>`
+                }
             }
             document.getElementById("body").innerHTML = html
+            if (Number(location.hash.replace("#","")) == 1){
+                document.getElementById("left").className = "disabled"
+            }else{
+                document.getElementById("left").className = ""
+            }
+            if (Number(location.hash.replace("#","")) == Math.ceil(data.length / 10)){
+                document.getElementById("right").className = "disabled"
+            }else{
+                document.getElementById("right").className = ""
+            }
+            var html = ""
+            for (var i = 1;i <= Math.ceil(data.length / 10);++i){
+                if (i == (Number(location.hash.replace("#","")))){
+                    html += '<li class="active"><a>' + i +'</a></li>'
+                }else{
+                    html += '<li class="waves-effect"><a href="#' + i + '">' + i +'</a></li>'
+                }
+            }
+            document.getElementById("pagination_main").innerHTML = html
+        }
+        window.addEventListener("hashchange",() => {
+            change_html()
         })
     </script>
 </body>
