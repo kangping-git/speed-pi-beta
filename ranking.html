@@ -66,7 +66,7 @@
             var html = ""
             for (var i in data){
                 if ((Number(location.hash.replace("#",""))-1) * 10 < i && i <= (Number(location.hash.replace("#",""))) * 10){
-                    html += `<tr><td>${data[i].name}</td><td>${data[i].score}</td><td>${data[i].timer}</td><td>${(data[i].score/data[i].timer).toFixed(2)}</td><td>${new Date(data[i].time).getFullYear() + "/" + ("0" + (new Date(data[i].time).getMonth() + 1)).slice(-2) + "/" + ("0" + (new Date(data[i].time).getDate())).slice(-2) + " " + ("0" + (new Date(data[i].time).getHours())).slice(-2) + ":" + ("0" + (new Date(data[i].time).getMinutes())).slice(-2) + ":" + ("0" + (new Date(data[i].time).getSeconds())).slice(-2)}</td></tr>`
+                    html += `<tr><td>${data[i].name}</td><td>${data[i].score}</td><td>${data[i].timer / 1000}s</td><td>${(data[i].score/(data[i].timer/1000)).toFixed(2)}</td><td>${new Date(data[i].time).getFullYear() + "/" + ("0" + (new Date(data[i].time).getMonth() + 1)).slice(-2) + "/" + ("0" + (new Date(data[i].time).getDate())).slice(-2) + " " + ("0" + (new Date(data[i].time).getHours())).slice(-2) + ":" + ("0" + (new Date(data[i].time).getMinutes())).slice(-2) + ":" + ("0" + (new Date(data[i].time).getSeconds())).slice(-2)}</td></tr>`
                 }
             }
             document.getElementById("body").innerHTML = html
