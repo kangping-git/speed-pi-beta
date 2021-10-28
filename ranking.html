@@ -10,12 +10,17 @@
     <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-database.js"></script>
     <link rel="shortcut icon" href="./favicon.ico">
+    <style>
+        li{
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body style="text-align: center;">
     <h2>speed pi beta ranking</h2>
     <table style="width: 75%;margin-left: auto;margin-right: auto;">
         <thead>
-            <tr><td>Name</td><td>Score</td><td>clear time</td><td>several digits per second</td><td>time</td></tr>
+            <tr><td>Name</td><td>Score</td><td>clear</td><td>TPS [type/second]</td><td>Date</td></tr>
         </thead>
         <tbody id="body"></tbody>
     </table>
