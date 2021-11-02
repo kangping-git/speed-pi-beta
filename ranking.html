@@ -6,18 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ranking</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">         
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-database.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <link rel="shortcut icon" href="./favicon.ico">
     <style>
         li{
             cursor: pointer;
         }
+        body{
+            -webkit-user-select: none;
+               -moz-user-select: none;
+                -ms-user-select: none;
+                    user-select: none;
+        }
     </style>
 </head>
 <body style="text-align: center;">
     <h2>speed pi beta ranking</h2>
+    <div class="input-field col s12" style="width: 75%;margin-left: auto;margin-right: auto;">
+        <select id="opt" onchange="change_html()">
+            <option value="all" checked>all</option>
+            <option value="7">During recent seven days</option>
+            <option value="31">During recent thirty one days</option>
+        </select>
+        <label>Conditions to display</label>
+    </div>
+    <label></label>
     <table style="width: 75%;margin-left: auto;margin-right: auto;">
         <thead>
             <tr><td>Name</td><td>Score</td><td>clear</td><td>TPS [type/second]</td><td>Date</td></tr>
@@ -29,9 +45,13 @@
         <a id="pagination_main"></a>
         <li id="right" onclick="change_hash(1)"><a><i class="material-icons">chevron_right</i></a></li>
     </ul>
-    <a class="button" href="./speed-Pi.html" target="_blank" rel="noopenar">speed pi</a>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <a class="button" href="./speed-Pi.html" target="_blank" rel="noopenar">speed pi</a><br>
+    powerd by <a class="button" href="https://kangping.jp" target="_blank" rel="noopenar">kangping</a>
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('select');
+            var instances = M.FormSelect.init(elems, {});
+        });
         function change_hash(mode){
             if (mode == 0){
                 if (Number(location.hash.replace("#","")) != 1){
@@ -55,22 +75,38 @@
             measurementId: "G-H0PVNZSRXX"
         };
         firebase.initializeApp(config);
+        var data2 = []
         var data = []
-        var rank = firebase.database().ref().child("rank")
+        var rank = firebase.database().ref().child("rank").child("endress").child("pi")
         if (!location.hash){
             location.hash = 1
         }
         rank.on("child_added",(val) => {
-            data.push(val.val())
+            data2.push(val.val())
             change_html()
         })
         function change_html(){
-            data = data.sort((a,b) => {
-                return b.score - a.score
+            data2 = data2.sort((a,b) => {
+                if (b.score - a.score != 0){
+                    return b.score - a.score
+                }else{
+                    return a.timer - b.timer
+                }
             })
+            if (document.getElementById("opt").value == "all"){
+                data = data2
+            }else if (document.getElementById("opt").value == "7"){
+                data = data2.filter((obj) => {
+                    return new Date() - new Date(obj.time) < 60*60*1000*24*7
+                })
+            }else if (document.getElementById("opt").value == "31"){
+                data = data2.filter((obj) => {
+                    return new Date() - new Date(obj.time) < 60*60*1000*24*31
+                })
+            }
             var html = ""
             for (var i in data){
-                if ((Number(location.hash.replace("#",""))-1) * 10 < i && i <= (Number(location.hash.replace("#",""))) * 10){
+                if ((Number(location.hash.replace("#",""))-1) * 10 <= i && i < (Number(location.hash.replace("#",""))) * 10){
                     html += `<tr><td>${data[i].name}</td><td>${data[i].score}</td><td>${data[i].timer / 1000}s</td><td>${(data[i].score/(data[i].timer/1000)).toFixed(2)}</td><td>${new Date(data[i].time).getFullYear() + "/" + ("0" + (new Date(data[i].time).getMonth() + 1)).slice(-2) + "/" + ("0" + (new Date(data[i].time).getDate())).slice(-2) + " " + ("0" + (new Date(data[i].time).getHours())).slice(-2) + ":" + ("0" + (new Date(data[i].time).getMinutes())).slice(-2) + ":" + ("0" + (new Date(data[i].time).getSeconds())).slice(-2)}</td></tr>`
                 }
             }
@@ -86,7 +122,7 @@
                 document.getElementById("right").className = ""
             }
             var html = ""
-            for (var i = 1;i <= Math.ceil(data.length / 10);++i){
+            for (var i = 1;i <= Math.ceil((data.length) / 10);++i){
                 if (i == (Number(location.hash.replace("#","")))){
                     html += '<li class="active"><a>' + i +'</a></li>'
                 }else{
@@ -99,5 +135,6 @@
             change_html()
         })
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>
