@@ -4,8 +4,34 @@ function popup(id){
     document.getElementById("fixed").style.height = "100%"
     document.getElementById(id).style.display = "block"
 }
-new Audio("./Ok.mp3").load()
-new Audio("./No.mp3").load()
+get()
+var data;
+var pi;
+function get(){
+    if (start_bool != true){
+        var a = null
+        for (var i = 0;i < document.getElementsByName("types").length;++i){
+            if (document.getElementsByName("types")[i].checked){
+                a = document.getElementsByName("types")[i].value
+                break
+            }
+        }
+        get_HTML("./" + a + ".html")
+    }
+}
+var start_SSSS = []
+function get_HTML(url){
+    document.getElementById("iframe_1").src = url
+    document.getElementById("iframe_1").onload = () => {
+        pi = document.getElementById("iframe_1").contentWindow.document.getElementById("data").innerHTML
+        start_SSSS = JSON.parse(document.getElementById("iframe_1").contentWindow.document.getElementById("start").innerHTML)
+    }
+}
+switch_mode()
+var a = new Audio("./Ok.mp3")
+a.preload = "auto"
+a = new Audio("./No.mp3")
+a.preload = "auto"
 function unpopup(id){
     document.getElementById("fixed").style.backgroundColor = "rgba(0, 0, 0, 0)"
     document.getElementById("fixed").style.width = "0%"
@@ -45,16 +71,28 @@ setInterval(() => {
                 document.getElementById("timer").innerText = time_for_string(new Date() - start_time) + "\nNo." + (answer + 1) + "\nscore:" + score
             }
         }
+        let elements = document.getElementsByName("types");
+        let len = elements.length;
+        for (let i = 0; i < len; i++){
+            elements[i].disabled = true
+        }
     }else if (start_bool == null){
         if (mode == "1"){
             document.getElementById("press9").style.display = "block"
-            document.getElementById("uploads").style.display = "block"
+            if (get_radio("types") == "pi"){
+                document.getElementById("uploads").style.display = "block"
+            }
             document.getElementById("buttons").style.display = "block"
             document.getElementById("timer").innerText = time_for_string(time) + "\nscore:" + (score)
         }else{
             document.getElementById("press9").style.display = "block"
             document.getElementById("uploads").style.display = "none"
             document.getElementById("timer").innerText = time_for_string(time) + "\nscore:" + score
+        }
+        let elements = document.getElementsByName("types");
+        let len = elements.length;
+        for (let i = 0; i < len; i++){
+            elements[i].disabled = true
         }
     }else{
         document.getElementById("uploads").style.display = "none"
@@ -65,6 +103,11 @@ setInterval(() => {
         }else{
             document.getElementById("timer").innerText = "No.1"
         }
+        let elements = document.getElementsByName("types");
+        let len = elements.length;
+        for (let i = 0; i < len; i++){
+            elements[i].disabled = false
+        }
     }
 })
 var time_for_string = function (time){
@@ -72,10 +115,14 @@ var time_for_string = function (time){
 }
 var answers = []
 var time = new Date()
-var temp = ["&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","3","."]
+var temp = Array.from(start_SSSS)
 document.addEventListener("keydown",(e) => {
     if (["0","1","2","3","4","5","6","7","8","9"].includes(e.key)){
         key_press(e.key)
+    }else if (e.key == " "){
+        if (start_bool == false){
+            start()
+        }
     }
 })
 function key_press(a){
@@ -138,7 +185,7 @@ var mode = get_radio("tekitou")
 var mode_2 = get_radio("mode")
 function start(){
     answer = []
-    temp = ["&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","&nbsp;","3","."]
+    temp = Array.from(start_SSSS)
     count = 0
     score = 0
     document.getElementById("button-start").style.display = "none"
@@ -196,12 +243,11 @@ const config = {
     measurementId: "G-H0PVNZSRXX"
 };
 firebase.initializeApp(config);
-var rank = firebase.database().ref().child("rank")
+var rank = firebase.database().ref().child("rank").child("endress").child("endress").child("pi")
 function upload(){
-    rank.push({name:document.getElementById("your_name").innerText,score:score,time:new Date().toUTCString(),timer:time})
+    rank.push({name:document.getElementById("your_name").value,score:score,time:new Date().toUTCString(),timer:time})
     start_bool = false
     document.getElementById("button-start").style.display = "inline"
     document.getElementById("question").innerHTML = ""
 }
-switch_mode()
 document.getElementById("pis").innerHTML = separate(pi)
