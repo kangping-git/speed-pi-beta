@@ -308,7 +308,10 @@
             <input type="radio" name="tekitou" value="1" id="Endress" checked>
             <label for="Endress" class="label">Endress number</label>
             <input type="radio" name="tekitou" value="2" id="Random">
-            <label for="Random" class="label">Random number</label><br><br>
+            <label for="Random" class="label">Random number</label>
+            <!-- <input type="radio" name="tekitou" value="3" id="time_attack">
+            <label for="time_attack" class="label">Time Attack 100</label> -->
+            <br><br>
             <a class="button" style="font-size: 15px;" onclick="switch_mode()">change dark mode and light mode</a><br><br>
             <div id="random-contents" style="opacity:0">
                 <input type="radio" name="mode" value="50" id="Beginner" checked>
@@ -321,13 +324,13 @@
                 <label for="God" class="label">~10000</label>
             </div><br>
             <input type="radio" name="types" value="pi" id="z1" checked>
-            <label for="z1" class="label" onclick="get()">π</label>
+            <label for="z1" class="label" onclick="setTimeout(() => {get()},10)">π</label>
             <input type="radio" name="types" value="root" id="z2">
-            <label for="z2" class="label" onclick="get()"><a style="font-family: Consolas, 'Courier New', monospace;">√</a>2</label>
+            <label for="z2" class="label" onclick="setTimeout(() => {get()},10)"><a style="font-family: Consolas, 'Courier New', monospace;">√</a>2</label>
             <input type="radio" name="types" value="golden" id="z3">
-            <label for="z3" class="label" onclick="get()">golden ratio</label>
+            <label for="z3" class="label" onclick="setTimeout(() => {get()},10)">golden ratio</label>
             <input type="radio" name="types" value="nepier" id="z4">
-            <label for="z4" class="label" onclick="get()">napier</label>
+            <label for="z4" class="label" onclick="setTimeout(() => {get()},10)">napier</label>
             <h1 id="timer">00:00.000</h1>
             <a id="question" style="color: white;"></a>
         </header>
@@ -347,7 +350,7 @@
                 <a class="button key" onclick="key_press(0)">&nbsp;0&nbsp;</a><br><br>
                 <div id="uploads" style="text-align: center;width: 20%;margin-left: auto;margin-right: auto;">
                     <input style="border: none;background-color: rgba(0,0,0,0);text-align: center;" value="No name" id="your_name" name="name"><br><br>
-                    <a class="button" onclick="upload()">SUBMIT</a>
+                    <a class="button" id="SUBMIT_BUTTON" onclick="upload()">SUBMIT</a>
                 </div><br>
                 <a class="guidance" style="font-size: 20pt;" id="press9">press 9 to reset</a><br><br>
                 <div id="buttons">

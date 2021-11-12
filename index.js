@@ -81,6 +81,19 @@ setInterval(() => {
             document.getElementById("press9").style.display = "block"
             if (get_radio("types") == "pi"){
                 document.getElementById("uploads").style.display = "block"
+                document.getElementById("SUBMIT_BUTTON").onclick = () => {upload(rank_pi)}
+            }
+            if (get_radio("types") == "root"){
+                document.getElementById("uploads").style.display = "block"
+                document.getElementById("SUBMIT_BUTTON").onclick = () => {upload(rank_root)}
+            }
+            if (get_radio("types") == "golden"){
+                document.getElementById("uploads").style.display = "block"
+                document.getElementById("SUBMIT_BUTTON").onclick = () => {upload(rank_golden)}
+            }
+            if (get_radio("types") == "napier"){
+                document.getElementById("uploads").style.display = "block"
+                document.getElementById("SUBMIT_BUTTON").onclick = () => {upload(rank_napier)}
             }
             document.getElementById("buttons").style.display = "block"
             document.getElementById("timer").innerText = time_for_string(time) + "\nscore:" + (score)
@@ -243,8 +256,11 @@ const config = {
     measurementId: "G-H0PVNZSRXX"
 };
 firebase.initializeApp(config);
-var rank = firebase.database().ref().child("rank").child("endress").child("endress").child("pi")
-function upload(){
+var rank_pi = firebase.database().ref().child("rank").child("endress").child("pi")
+var rank_root = firebase.database().ref().child("rank").child("endress").child("root")
+var rank_golden = firebase.database().ref().child("rank").child("endress").child("golden")
+var rank_napier = firebase.database().ref().child("rank").child("endress").child("napier")
+function upload(rank){
     rank.push({name:document.getElementById("your_name").value,score:score,time:new Date().toUTCString(),timer:time})
     start_bool = false
     document.getElementById("button-start").style.display = "inline"
