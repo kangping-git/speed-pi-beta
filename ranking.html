@@ -23,34 +23,49 @@
         }
     </style>
 </head>
-<body style="text-align: center;">
-    <h2>speed pi beta ranking</h2>
-    <div class="input-field col s12" style="width: 75%;margin-left: auto;margin-right: auto;">
-        <select id="opt" onchange="change_html()">
-            <option value="all" checked>all</option>
-            <option value="7">During recent seven days</option>
-            <option value="31">During recent thirty one days</option>
-        </select>
-        <label>Conditions to display</label>
-    </div>
-    <label></label>
-    <table style="width: 75%;margin-left: auto;margin-right: auto;">
-        <thead>
-            <tr><td>Name</td><td>Score</td><td>clear</td><td>TPS [type/second]</td><td>Date</td></tr>
-        </thead>
-        <tbody id="body"></tbody>
-    </table>
-    <ul class="pagination">
-        <li id="left" onclick="change_hash(0)"><a><i class="material-icons">chevron_left</i></a></li>
-        <a id="pagination_main"></a>
-        <li id="right" onclick="change_hash(1)"><a><i class="material-icons">chevron_right</i></a></li>
-    </ul>
-    <a class="button" href="./speed-Pi.html" target="_blank" rel="noopenar">speed pi</a><br>
-    powerd by <a class="button" href="https://kangping.jp" target="_blank" rel="noopenar">kangping</a>
+<body>
+    <a href="#" data-target="slide-out" class="sidenav-trigger" style="font-size: 20pt;"><i class="material-icons">menu</i></a>
+    <main style="text-align: center;">
+        <h2>speed pi beta ranking</h2>
+        <ul id="slide-out" class="sidenav">
+            <div class="collection" style="width: 75%;margin-left: auto;margin-right: auto;">
+                <a class="collection-item" id="item_1" onclick="change_item('rank_pi_list','item_1')" style="cursor: pointer;">pi</a>
+                <a class="collection-item" id="item_2" onclick="change_item('rank_root_list','item_2')" style="cursor: pointer;"><span style="font-family: Consolas, 'Courier New', monospace;">√</span>2</a>
+                <a class="collection-item" id="item_3" onclick="change_item('rank_golden_list','item_3')" style="cursor: pointer;">Golden ratio</a>
+                <a class="collection-item" id="item_4" onclick="change_item('rank_napier_list','item_4')" style="cursor: pointer;">napier</a>
+            </div>
+        </ul>
+        <div class="input-field col s12" style="width: 75%;margin-left: auto;margin-right: auto;">
+            <select id="opt" onchange="change_html()">
+                <option value="all" checked>all</option>
+                <option value="7">During recent seven days</option>
+                <option value="31">During recent thirty one days</option>
+            </select>
+            <label>Conditions to display</label>
+        </div>
+        <label></label>
+        <table style="width: 75%;margin-left: auto;margin-right: auto;">
+            <thead>
+                <tr><td>Name</td><td>Score</td><td>clear</td><td>TPS [type/second]</td><td>Date</td></tr>
+            </thead>
+            <tbody id="body"></tbody>
+        </table>
+        <ul class="pagination">
+            <li id="left" onclick="change_hash(0)"><a><i class="material-icons">chevron_left</i></a></li>
+            <a id="pagination_main"></a>
+            <li id="right" onclick="change_hash(1)"><a><i class="material-icons">chevron_right</i></a></li>
+        </ul>
+        <a class="button" href="./speed-Pi.html" target="_blank" rel="noopenar">speed pi</a><br>
+        powerd by <a class="button" href="https://kangping.jp" target="_blank" rel="noopenar">kangping</a>
+    </main>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var elems = document.querySelectorAll('select');
             var instances = M.FormSelect.init(elems, {});
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.sidenav');
+            var instances = M.Sidenav.init(elems, {});
         });
         function change_hash(mode){
             if (mode == 0){
@@ -75,17 +90,51 @@
             measurementId: "G-H0PVNZSRXX"
         };
         firebase.initializeApp(config);
-        var data2 = []
+        var rank_pi = firebase.database().ref().child("rank").child("endress").child("pi")
+        var rank_root = firebase.database().ref().child("rank").child("endress").child("root")
+        var rank_golden = firebase.database().ref().child("rank").child("endress").child("golden")
+        var rank_napier = firebase.database().ref().child("rank").child("endress").child("napier")
+        var rank_pi_list = []
+        var rank_root_list = []
+        var rank_golden_list = []
+        var rank_napier_list = []
         var data = []
-        var rank = firebase.database().ref().child("rank").child("endress").child("pi")
+        var data2 = []
+        var data3 = ""
+        change_item("rank_pi_list",'item_1')
         if (!location.hash){
             location.hash = 1
         }
-        rank.on("child_added",(val) => {
-            data2.push(val.val())
+        rank_pi.on("child_added",(val) => {
+            rank_pi_list.push(val.val())
             change_html()
         })
+        rank_root.on("child_added",(val) => {
+            rank_root_list.push(val.val())
+            change_html()
+        })
+        rank_golden.on("child_added",(val) => {
+            rank_golden_list.push(val.val())
+            change_html()
+        })
+        rank_napier.on("child_added",(val) => {
+            rank_napier_list.push(val.val())
+            change_html()
+        })
+        function change_item(item_list,id_name){
+            data3 = item_list
+            var daaaataaaaa = ["item_1","item_2","item_3","item_4"]
+            for (var i in daaaataaaaa){
+                if (daaaataaaaa[i] == id_name){
+                    document.getElementById(daaaataaaaa[i]).className = "collection-item active"
+                }else{
+                    document.getElementById(daaaataaaaa[i]).className = "collection-item"
+                }
+            }
+            change_html()
+        }
         function change_html(){
+            data2 = window[data3]
             data2 = data2.sort((a,b) => {
                 if (b.score - a.score != 0){
                     return b.score - a.score
