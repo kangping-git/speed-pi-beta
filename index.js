@@ -91,7 +91,7 @@ setInterval(() => {
                 document.getElementById("uploads").style.display = "block"
                 document.getElementById("SUBMIT_BUTTON").onclick = () => {upload(rank_golden)}
             }
-            if (get_radio("types") == "napier"){
+            if (get_radio("types") == "nepier"){
                 document.getElementById("uploads").style.display = "block"
                 document.getElementById("SUBMIT_BUTTON").onclick = () => {upload(rank_napier)}
             }
