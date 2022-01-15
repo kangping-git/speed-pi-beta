@@ -119,7 +119,7 @@ function onkey(key_name){
                         document.getElementById("datassss").innerHTML += "<br>type:Speedpi Counts" + score
                     },500)
                     setTimeout(() => {
-                        document.getElementById("datassss").innerHTML += "<br><a class='button' onclick='submit_data()'>Submit</a>"
+                        document.getElementById("datassss").innerHTML += "<br>score:" + score
                         start = null
                     },1000)
                 }
