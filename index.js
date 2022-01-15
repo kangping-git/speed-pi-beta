@@ -81,7 +81,7 @@ function onkey(key_name){
                     window.time = new Date() - start_time
                     start = "nulla"
                     var s = new Date().getTime()
-                    fetch("http://worldtimeapi.org/api/timezone/Asia/Tokyo")
+                    fetch("https://worldtimeapi.org/api/timezone/Asia/Tokyo")
                     .then(val => val.json())
                     .then(json => {
                         finish_time = new Date(new Date(json.utc_datetime).getTime() - (new Date(json.utc_datetime).getTime() - s)).toUTCString()
@@ -106,7 +106,7 @@ function onkey(key_name){
                     window.time = new Date() - start_time
                     start = "nulla"
                     var s = new Date().getTime()
-                    fetch("http://worldtimeapi.org/api/timezone/Asia/Tokyo")
+                    fetch("https://worldtimeapi.org/api/timezone/Asia/Tokyo")
                     .then(val => val.json())
                     .then(json => {
                         finish_time = new Date(new Date(json.utc_datetime).getTime() - (new Date(json.utc_datetime).getTime() - s)).toUTCString()
