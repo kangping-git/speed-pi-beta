@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ranking</title>
+    <link rel="stylesheet" href="./index.css">
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-database.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyDZsD6Lspm6PJ9VvCd3ReJe5T6ex36nRc8",
+            authDomain: "speed-pi-database.firebaseapp.com",
+            databaseURL: "https://speed-pi-database-default-rtdb.firebaseio.com",
+            projectId: "speed-pi-database",
+            storageBucket: "speed-pi-database.appspot.com",
+            messagingSenderId: "744730019739",
+            appId: "1:744730019739:web:88c0a38a65c3badbff033e",
+            measurementId: "G-H0PVNZSRXX"
+        };
+        firebase.initializeApp(firebaseConfig)
+    </script>
+</head>
+<body>
+    <h1>Ranking</h1>
+    <select id="time" class="ranking" onchange="update_table()">
+        <option value="Infinity">all</option>
+        <option value="7">7 days before</option>
+        <option value="31">31 days before</option>
+        <option value="365">365 days before</option>
+    </select>
+    <select id="type" class="ranking" onchange="update_table()">
+        <optgroup label="endress">
+            <option value="0">endress</option>
+        </optgroup>
+        <optgroup label="count">
+            <option value="1">10</option>
+            <option value="2">100</option>
+            <option value="3">1000</option>
+            <option value="4">10000</option>
+        </optgroup>
+    </select><br><br><br>
+    <table class="ranking">
+        <thead id="thead">
+            <tr>
+                <th class="ranking">Name</th><th class="ranking">TPS[type/second]</th><th class="ranking">Time</th><th class="ranking">Date</th>
+            </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+    </table>
+    <script>
+        var type = 0
+        var html = ""
+        var datas = []
+        var aaaaaaa = ["",10,100,1000,10000]
+        var dataa = [firebase.database().ref().child('endress'),firebase.database().ref().child('count/10'),firebase.database().ref().child('count/100'),firebase.database().ref().child('count/1000'),firebase.database().ref().child('count/10000')]
+        dataa.forEach((value,index) => {
+            datas.push([])
+            value.on("child_added",(val) => {
+                datas[index].push(val.val())
+                update_table()
+            })
+        })
+        function update_table(){
+            type = document.getElementById("type").value
+            if (type > 0){
+                document.getElementById("thead").innerHTML = `<tr>
+                <th class="ranking">Name</th><th class="ranking">TPS[type/second]</th><th class="ranking">Time</th><th class="ranking">Date</th>
+            </tr>`
+                html = ""
+                datas[type].sort((a,b) => {
+                    return a.time - b.time
+                })
+                datas[type].forEach((value) => {
+                    if ((new Date() - new Date(value.date)) / (1000*60*60*24) < document.getElementById("time").value){
+                        html += "<tr><td class='ranking'>" + value.name + "</td><td class='ranking'>" + (aaaaaaa[type - 1] / (value.time/1000)).toFixed(2) + "</td><td class='ranking'>" + (value.time/1000) + "s</td><td class='ranking'>" + new Date(value.date).toLocaleString() + "</td></tr>"
+                    }
+                })
+                document.getElementById("tbody").innerHTML = html
+            }else{
+                document.getElementById("thead").innerHTML = `<tr>
+                <th class="ranking">Name</th><th class="ranking">Score</th><th class="ranking">TPS[type/second]</th><th class="ranking">Time</th><th class="ranking">Date</th>
+            </tr>`
+                html = ""
+                datas[type].sort((a,b) => {
+                    if (a.score == b.score){
+                        return a.time - b.time
+                    }else{
+                        return b.score - a.score
+                    }
+                })
+                datas[type].forEach((value) => {
+                    if ((new Date() - new Date(value.date)) / (1000*60*60*24) < document.getElementById("time").value){
+                        html += "<tr><td class='ranking'>" + value.name + "</td><td class='ranking'>" + value.score + "</td><td class='ranking'>" + (value.score / (value.time/1000)).toFixed(2) + "</td><td class='ranking'>" + (value.time/1000) + "s</td><td class='ranking'>" + new Date(value.date).toLocaleString() + "</td></tr>"
+                    }
+                })
+                document.getElementById("tbody").innerHTML = html
+            }
+        }
+    </script>
+</body>
+</html>
