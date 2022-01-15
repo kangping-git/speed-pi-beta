@@ -4,10 +4,117 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Speed pi</title>
-    <meta http-equiv="refresh"content="0;URL=./speed-Pi.html">
+    <title>speed pi beta</title>
+    <script src="index.js" defer></script>
+    <link rel="stylesheet" href="./index.css">
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-auth.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyDZsD6Lspm6PJ9VvCd3ReJe5T6ex36nRc8",
+            authDomain: "speed-pi-database.firebaseapp.com",
+            databaseURL: "https://speed-pi-database-default-rtdb.firebaseio.com",
+            projectId: "speed-pi-database",
+            storageBucket: "speed-pi-database.appspot.com",
+            messagingSenderId: "744730019739",
+            appId: "1:744730019739:web:88c0a38a65c3badbff033e",
+            measurementId: "G-H0PVNZSRXX"
+        };
+        firebase.initializeApp(firebaseConfig)
+    </script>
 </head>
-<body>
-    
+<body style="text-align: center;">
+    <div id="load">
+        <canvas id="loader"></canvas>
+        <a class="load"></a>
+    </div>
+    <div id="main">
+        <div class="mask">
+            <div class="dialog" data-name="fin">
+                <div class="dialog-head">
+                    finish!
+                    <a style="position: absolute;top: 10px;right: 10px;font-size: 10pt;cursor: pointer;" onclick="close_dialog('fin')">x</a>
+                </div>
+                <div class="dialog-main">
+                    <h1>
+                        Your finished Speedpi Counts
+                    </h1>
+                </div>
+            </div>
+            <div class="dialog" data-name="aaa">
+                <div class="dialog-head" onmouseover="javascript:on_up = true" onmouseleave="javascript:on_up = false">
+                    setting
+                    <a style="position: absolute;top: 10px;right: 10px;font-size: 10pt;cursor: pointer;" onclick="close_dialog('aaa')">x</a>
+                </div>
+                <div class="dialog-main">
+                    <h2>setting</h2>
+                    <div>
+                        <table style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th class="setting-1">setting item</th><th class="setting-2">setting</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="setting-1"><span style="font-size: 11pt;">Submit Name</span></td><td class="setting-2"><input id="name" value="no name"></td>
+                                </tr>
+                                <tr>
+                                    <td class="setting-1"><span style="font-size: 11pt;">sound</td><td class="setting-2"><input type="checkbox" onchange="update_setting()" id="sound" class="switch"><label for="sound" class="switch-main"></label></span></td><br>
+                                </tr>
+                                <tr>
+                                    <td class="setting-1"><span style="font-size: 11pt;">timer display</td><td class="setting-2"><input type="checkbox" onchange="update_setting()" id="hidden_timer" class="switch"><label for="hidden_timer" class="switch-main"></label></td></span>
+                                </tr>
+                                <tr>
+                                    <td class="setting-1"><span style="font-size: 11pt;">speed start</td><td class="setting-2"><input type="checkbox" onchange="update_setting()" id="speed-start" class="switch"><label for="speed-start" class="switch-main"></label></span></td><br>
+                                </tr>
+                                <tr>
+                                    <td class="setting-1"><span style="font-size: 11pt;">tenkey arrangement</span></td><td class="setting-2"><select id="key_style" onchange="javascript:document.getElementById('keyboard-1').classList.toggle('on');document.getElementById('keyboard-2').classList.toggle('on');update_setting()">
+                                        <option>calculator style</option>
+                                        <option>telephone style</option>
+                                    </select></td>
+                                </tr>
+                                <tr>
+                                    <td class="setting-1"><span style="font-size: 11pt;">contents</span></td><td class="setting-2"><select id="content" onchange="update_setting()">
+                                        <option value="count">Speedpi Counts</option>
+                                        <option value="endress">Speedpi Endress</option>
+                                    </select></td>
+                                </tr>
+                                <tr id="count-s">
+                                    <td class="setting-1"><span style="font-size: 11pt;">Speedpi Counts Setting</span></td><td class="setting-2"><select id="count-setting" onchange="update_setting()">
+                                        <option value="10">10</option>
+                                        <option value="100">100</option>
+                                        <option value="1000">1000</option>
+                                        <option value="10000">10000</option>
+                                    </select></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h1 id="timer">00:00.000</h1>
+        <a id="pi"></a><br>
+        <a id="status"></a><br>
+        <h3 id="score"></h3>
+        <span id="datassss"></span>
+        <div id="buttons">
+            <div id="keyboard-1" class="on">
+                <a class="button key">7</a><a class="button key">8</a><a class="button key">9</a><br>
+                <a class="button key">4</a><a class="button key">5</a><a class="button key">6</a><br>
+                <a class="button key">1</a><a class="button key">2</a><a class="button key">3</a><br>
+                <a class="button key">0</a>
+            </div>
+            <div id="keyboard-2">
+                <a class="button key">1</a><a class="button key">2</a><a class="button key">3</a><br>
+                <a class="button key">4</a><a class="button key">5</a><a class="button key">6</a><br>
+                <a class="button key">7</a><a class="button key">8</a><a class="button key">9</a><br>
+                <a class="button key">0</a>
+            </div><br>
+            <a class="button" onclick="open_dialog('aaa')" id="setting_button">setting</a>
+        </div>
+    </div>
 </body>
 </html>
