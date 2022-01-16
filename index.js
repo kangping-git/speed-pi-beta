@@ -108,12 +108,7 @@ function onkey(key_name){
                     document.getElementById("score").innerText = ""
                     window.time = new Date() - start_time
                     start = "nulla"
-                    var s = new Date().getTime()
-                    fetch("http://worldtimeapi.org/api/timezone/Asia/Tokyo")
-                    .then(val => val.json())
-                    .then(json => {
-                        finish_time = new Date(new Date(json.utc_datetime).getTime() - (new Date(json.utc_datetime).getTime() - s)).toUTCString()
-                    })
+                    finish_time = new Date().toUTCString()
                     document.getElementById("timer").innerText = ("00" + Math.floor((time) / (60*1000))).slice(-2) + ":" + ("00" + Math.floor((time) / 1000) % 60).slice(-2) + "." + ("000" + Math.floor((time) / 1) % 1000).slice(-3)
                     setTimeout(() => {
                         document.getElementById("datassss").innerHTML = "complete!"
