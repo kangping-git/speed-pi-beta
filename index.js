@@ -67,15 +67,18 @@ function onkey(key_name){
                     start = "nulla"
                     document.getElementById("timer").innerText = ("00" + Math.floor((time) / (60*1000))).slice(-2) + ":" + ("00" + Math.floor((time) / 1000) % 60).slice(-2) + "." + ("000" + Math.floor((time) / 1) % 1000).slice(-3)
                     setTimeout(() => {
-                        document.getElementById("datassss").innerHTML = "<br>time:" + time / 1000 + "s"
+                        document.getElementById("datassss").innerHTML = "failed!"
                     })
                     setTimeout(() => {
-                        document.getElementById("datassss").innerHTML += "<br>type:Speedpi Counts" + document.getElementById("count-setting").value
+                        document.getElementById("datassss").innerHTML += "<br>time:" + time / 1000 + "s"
                     },500)
+                    setTimeout(() => {
+                        document.getElementById("datassss").innerHTML += "<br>type:Speedpi Counts" + document.getElementById("count-setting").value
+                    },1000)
                     setTimeout(() => {
                         document.getElementById("datassss").innerHTML += "<br>score:" + (score - 1)
                         start = null
-                    },1000)
+                    },1500)
                 }else{
                     document.getElementById("score").innerText = ""
                     window.time = new Date() - start_time
@@ -113,15 +116,18 @@ function onkey(key_name){
                     })
                     document.getElementById("timer").innerText = ("00" + Math.floor((time) / (60*1000))).slice(-2) + ":" + ("00" + Math.floor((time) / 1000) % 60).slice(-2) + "." + ("000" + Math.floor((time) / 1) % 1000).slice(-3)
                     setTimeout(() => {
-                        document.getElementById("datassss").innerHTML = "<br>time:" + time / 1000 + "s"
+                        document.getElementById("datassss").innerHTML = "complete!"
                     })
                     setTimeout(() => {
-                        document.getElementById("datassss").innerHTML += "<br>type:Speedpi Counts" + score
+                        document.getElementById("datassss").innerHTML = "<br>time:" + time / 1000 + "s"
                     },500)
+                    setTimeout(() => {
+                        document.getElementById("datassss").innerHTML += "<br>type:Speedpi Counts" + score
+                    },1000)
                     setTimeout(() => {
                         document.getElementById("datassss").innerHTML += "<br><a class='button' onclick='submit_data()'>Submit</a>"
                         start = null
-                    },1000)
+                    },1500)
                 }
             }else{
                 if (10000 == score){
