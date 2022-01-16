@@ -43,7 +43,7 @@
     </select><br><br><br>
     <table class="ranking">
         <thead id="thead">
-            <tr>
+            <tr class='ranking'>
                 <th class="ranking">Name</th><th class="ranking">TPS[type/second]</th><th class="ranking">Time</th><th class="ranking">Date</th>
             </tr>
         </thead>
@@ -52,11 +52,11 @@
     <script>
         var type = 0
         var html = ""
-        var datas = []
+        var datas = [[],[],[],[],[]]
         var aaaaaaa = ["",10,100,1000,10000]
+        update_table()
         var dataa = [firebase.database().ref().child('endress'),firebase.database().ref().child('count/10'),firebase.database().ref().child('count/100'),firebase.database().ref().child('count/1000'),firebase.database().ref().child('count/10000')]
         dataa.forEach((value,index) => {
-            datas.push([])
             value.on("child_added",(val) => {
                 datas[index].push(val.val())
                 update_table()
@@ -64,23 +64,23 @@
         })
         function update_table(){
             type = document.getElementById("type").value
-            if (type > 0){
-                document.getElementById("thead").innerHTML = `<tr>
-                <th class="ranking">Name</th><th class="ranking">TPS[type/second]</th><th class="ranking">Time</th><th class="ranking">Date</th>
+            if (Number(type) > 0){
+                document.getElementById("thead").innerHTML = `<tr class='ranking'>
+                <th class="ranking">Rank</th><th class="ranking">Name</th><th class="ranking">TPS[type/second]</th><th class="ranking">Time</th><th class="ranking">Date</th>
             </tr>`
                 html = ""
                 datas[type].sort((a,b) => {
                     return a.time - b.time
                 })
-                datas[type].forEach((value) => {
-                    if ((new Date() - new Date(value.date)) / (1000*60*60*24) < document.getElementById("time").value){
-                        html += "<tr><td class='ranking'>" + value.name + "</td><td class='ranking'>" + (aaaaaaa[type - 1] / (value.time/1000)).toFixed(2) + "</td><td class='ranking'>" + (value.time/1000) + "s</td><td class='ranking'>" + new Date(value.date).toLocaleString() + "</td></tr>"
+                datas[type].forEach((value,index) => {
+                    if ((new Date() - new Date(value.date)) / (1000*60*60*24) <= Number(document.getElementById("time").value)){
+                        html += "<tr class='ranking'><td class='ranking'>No." + (index + 1) + "</td><td class='ranking'>" + value.name + "</td><td class='ranking'>" + (aaaaaaa[type - 1] / (value.time/1000)).toFixed(2) + "</td><td class='ranking'>" + (value.time/1000) + "s</td><td class='ranking'>" + new Date(value.date).toLocaleString() + "</td></tr>"
                     }
                 })
                 document.getElementById("tbody").innerHTML = html
             }else{
-                document.getElementById("thead").innerHTML = `<tr>
-                <th class="ranking">Name</th><th class="ranking">Score</th><th class="ranking">TPS[type/second]</th><th class="ranking">Time</th><th class="ranking">Date</th>
+                document.getElementById("thead").innerHTML = `<tr class='ranking'>
+                <th class="ranking">Rank</th><th class="ranking"</th><th class="ranking">Score</th><th class="ranking">TPS[type/second]</th><th class="ranking">Time</th><th class="ranking">Date</th>
             </tr>`
                 html = ""
                 datas[type].sort((a,b) => {
@@ -90,9 +90,10 @@
                         return b.score - a.score
                     }
                 })
-                datas[type].forEach((value) => {
-                    if ((new Date() - new Date(value.date)) / (1000*60*60*24) < document.getElementById("time").value){
-                        html += "<tr><td class='ranking'>" + value.name + "</td><td class='ranking'>" + value.score + "</td><td class='ranking'>" + (value.score / (value.time/1000)).toFixed(2) + "</td><td class='ranking'>" + (value.time/1000) + "s</td><td class='ranking'>" + new Date(value.date).toLocaleString() + "</td></tr>"
+                datas[type].forEach((value,index) => {
+                    console.log(value);
+                    if ((new Date() - new Date(value.date)) / (1000*60*60*24) <= Number(document.getElementById("time").value)){
+                        html += "<tr class='ranking'><td class='ranking'>No." + (index + 1) + "</td><td class='ranking'>" + value.name + "</td><td class='ranking'>" + value.score + "</td><td class='ranking'>" + (value.score / (value.time/1000)).toFixed(2) + "</td><td class='ranking'>" + (value.time/1000) + "s</td><td class='ranking'>" + new Date(value.date).toLocaleString() + "</td></tr>"
                     }
                 })
                 document.getElementById("tbody").innerHTML = html
