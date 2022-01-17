@@ -63,6 +63,7 @@ function onkey(key_name){
                 document.getElementById("score").innerText = "No." + (score + 2)
                 aaaaaa.push(key_name)
                 aaaaaa.shift()
+                score += 1
             }else{
                 if (document.getElementById("sound").checked == true){
                     play_No()
@@ -101,8 +102,6 @@ function onkey(key_name){
                         start = null
                     },1000)
                 }
-            }else{
-                score += 1
             }
             if (document.getElementById("content").value == "count"){
                 if (document.getElementById("count-setting").value == score){
