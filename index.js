@@ -100,9 +100,9 @@ function onkey(key_name){
                         document.getElementById("datassss").innerHTML += "<br><a class='button' onclick='submit_data()'>Submit</a>"
                         start = null
                     },1000)
-                }else{
-                    score += 1
                 }
+            }else{
+                score += 1
             }
             if (document.getElementById("content").value == "count"){
                 if (document.getElementById("count-setting").value == score){
