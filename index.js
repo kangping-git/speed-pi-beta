@@ -86,7 +86,9 @@ function onkey(key_name){
                     document.getElementById("score").innerText = ""
                     window.time = new Date() - start_time
                     start = "nulla"
-                    finish_time = new Date().toUTCString()
+                    fetch("https://worldtimeapi.org/api/timezone/Asia/Tokyo")
+                    .then(t => t.json())
+                    .then(t => {finish_time = new Date(new Date(t.utc_datetime) - (new Date() - s)).toUTCString()})
                     document.getElementById("timer").innerText = ("00" + Math.floor((time) / (60*1000))).slice(-2) + ":" + ("00" + Math.floor((time) / 1000) % 60).slice(-2) + "." + ("000" + Math.floor((time) / 1) % 1000).slice(-3)
                     setTimeout(() => {
                         document.getElementById("datassss").innerHTML = "<br>time:" + time / 1000 + "s"
@@ -106,7 +108,9 @@ function onkey(key_name){
                     document.getElementById("score").innerText = ""
                     window.time = new Date() - start_time
                     start = "nulla"
-                    finish_time = new Date().toUTCString()
+                    fetch("https://worldtimeapi.org/api/timezone/Asia/Tokyo")
+                    .then(t => t.json())
+                    .then(t => {finish_time = new Date(new Date(t.utc_datetime) - (new Date() - s)).toUTCString()})
                     document.getElementById("timer").innerText = ("00" + Math.floor((time) / (60*1000))).slice(-2) + ":" + ("00" + Math.floor((time) / 1000) % 60).slice(-2) + "." + ("000" + Math.floor((time) / 1) % 1000).slice(-3)
                     setTimeout(() => {
                         document.getElementById("datassss").innerHTML = "<br>time:" + time / 1000 + "s"
@@ -124,7 +128,9 @@ function onkey(key_name){
                     document.getElementById("score").innerText = ""
                     window.time = new Date() - start_time
                     start = "nulla"
-                    finish_time = new Date().toUTCString()
+                    fetch("https://worldtimeapi.org/api/timezone/Asia/Tokyo")
+                    .then(t => t.json())
+                    .then(t => {finish_time = new Date(new Date(t.utc_datetime) - (new Date() - s)).toUTCString()})
                     document.getElementById("timer").innerText = ("00" + Math.floor((time) / (60*1000))).slice(-2) + ":" + ("00" + Math.floor((time) / 1000) % 60).slice(-2) + "." + ("000" + Math.floor((time) / 1) % 1000).slice(-3)
                     setTimeout(() => {
                         document.getElementById("datassss").innerHTML = "<br>time:" + time / 1000 + "s"
