@@ -70,9 +70,9 @@
                                     <td class="setting-1"><span style="font-size: 11pt;">speed start</td><td class="setting-2"><input type="checkbox" onchange="update_setting()" id="speed-start" class="switch"><label for="speed-start" class="switch-main"></label></span></td><br>
                                 </tr>
                                 <tr>
-                                    <td class="setting-1"><span style="font-size: 11pt;">tenkey arrangement</span></td><td class="setting-2"><select id="key_style" onchange="javascript:document.getElementById('keyboard-1').classList.toggle('on');document.getElementById('keyboard-2').classList.toggle('on');update_setting()">
-                                        <option>calculator style</option>
-                                        <option>telephone style</option>
+                                    <td class="setting-1"><span style="font-size: 11pt;">tenkey arrangement</span></td><td class="setting-2"><select id="key_style" onchange="update_setting();update_tenkey()">
+                                        <option value="1" selected>calculator style</option>
+                                        <option value="2">telephone style</option>
                                     </select></td>
                                 </tr>
                                 <tr>

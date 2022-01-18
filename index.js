@@ -317,6 +317,15 @@ function timer(){
         }
     }
 }
+function update_tenkey(){
+    if (document.getElementById("key_style").value == "1"){
+        document.getElementById("keyboard-1").classList.add("on")
+        document.getElementById("keyboard-2").classList.remove("on")
+    }else{
+        document.getElementById("keyboard-2").classList.add("on")
+        document.getElementById("keyboard-1").classList.remove("on")
+    }
+}
 function update_setting(){
     localStorage.setItem("sound",document.getElementById("sound").checked)
     localStorage.setItem("speed_start",document.getElementById("speed-start").checked)
@@ -326,3 +335,4 @@ function update_setting(){
     localStorage.setItem("count-setting",document.getElementById("count-setting").value)
     localStorage.setItem("name",document.getElementById("name").value)
 }
+update_tenkey()
