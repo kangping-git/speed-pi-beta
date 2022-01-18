@@ -49,7 +49,7 @@
                 </div>
                 <div class="dialog-main">
                     <h2>setting</h2>
-                    <div>
+                    <div style="height: calc(90% - 50px);">
                         <table style="width: 100%;">
                             <thead>
                                 <tr>
@@ -58,7 +58,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="setting-1"><span style="font-size: 11pt;">Submit Name</span></td><td class="setting-2"><input id="name" value="no name"></td>
+                                    <td class="setting-1"><span style="font-size: 11pt;">Name</span></td><td class="setting-2"><input id="name" value="no name"></td>
                                 </tr>
                                 <tr>
                                     <td class="setting-1"><span style="font-size: 11pt;">sound</td><td class="setting-2"><input type="checkbox" onchange="update_setting()" id="sound" class="switch"><label for="sound" class="switch-main"></label></span></td><br>
@@ -76,7 +76,7 @@
                                     </select></td>
                                 </tr>
                                 <tr>
-                                    <td class="setting-1"><span style="font-size: 11pt;">contents</span></td><td class="setting-2"><select id="content" onchange="update_setting()">
+                                    <td class="setting-1"><span style="font-size: 11pt;">category</span></td><td class="setting-2"><select id="content" onchange="update_setting()">
                                         <option value="count">Speedpi Counts</option>
                                         <option value="endress">Speedpi Endress</option>
                                     </select></td>
@@ -92,6 +92,7 @@
                             </tbody>
                         </table>
                     </div>
+                    <a class="button color-inversion" onclick="close_dialog('aaa')">close</a>
                 </div>
             </div>
         </div>
@@ -113,8 +114,9 @@
                 <a class="button key">7</a><a class="button key">8</a><a class="button key">9</a><br>
                 <a class="button key">0</a>
             </div><br>
+            <a id="press9" class="Highlight" style="font-size: 20pt;">press 9 to reset</a><br>
             <a class="button" onclick="open_dialog('aaa')" id="setting_button">setting</a><br>
-            <a style="color:white;text-decoration:none;" rel="noopener" target="_blank" href="https://kangping-git.github.io/speed-pi-beta/ranking.html">ranking</a>
+            <a style="color:white;text-decoration:none;" rel="noopener" target="_blank" href="./ranking.html">ranking</a>
         </div>
     </div>
 </body>

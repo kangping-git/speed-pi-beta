@@ -71,6 +71,8 @@ function onkey(key_name){
                 if (document.getElementById("sound").checked == true){
                     play_No()
                 }
+                aaaaaa.push(`<a style="font-weight: 900;">${pi_data.main[score]}</a>`)
+                aaaaaa.shift()
                 if (document.getElementById("content").value == "count"){
                     document.getElementById("score").innerText = ""
                     window.time = new Date() - start_time
@@ -83,9 +85,12 @@ function onkey(key_name){
                         document.getElementById("datassss").innerHTML += "<br>type:Speedpi Counts" + document.getElementById("count-setting").value
                     },500)
                     setTimeout(() => {
+                        document.getElementById("datassss").innerHTML += "<br>TPS[type/second]:" + (score / (time / 1000)).toFixed(2)
+                    },1000)
+                    setTimeout(() => {
                         document.getElementById("datassss").innerHTML += "<br>score:" + (score - 1)
                         start = null
-                    },1000)
+                    },1500)
                 }else{
                     document.getElementById("score").innerText = ""
                     window.time = new Date() - start_time
@@ -102,9 +107,12 @@ function onkey(key_name){
                         document.getElementById("datassss").innerHTML += "<br>score:" + score
                     },500)
                     setTimeout(() => {
-                        document.getElementById("datassss").innerHTML += "<br><a class='button' onclick='submit_data()'>Submit</a>"
-                        start = null
+                        document.getElementById("datassss").innerHTML += "<br>TPS[type/second]:" + (score / (time / 1000)).toFixed(2)
                     },1000)
+                    setTimeout(() => {
+                        document.getElementById("datassss").innerHTML += "<br><a class='button' onclick='submit_data()'>record</a>"
+                        start = null
+                    },1500)
                 }
             }
             if (document.getElementById("content").value == "count"){
@@ -125,9 +133,12 @@ function onkey(key_name){
                         document.getElementById("datassss").innerHTML += "<br>type:Speedpi Counts" + score
                     },500)
                     setTimeout(() => {
-                        document.getElementById("datassss").innerHTML += "<br><a class='button' onclick='submit_data()'>Submit</a>"
-                        start = null
+                        document.getElementById("datassss").innerHTML += "<br>TPS[type/second]:" + (score / (time / 1000)).toFixed(2)
                     },1000)
+                    setTimeout(() => {
+                        document.getElementById("datassss").innerHTML += "<br><a class='button' onclick='submit_data()'>record</a>"
+                        start = null
+                    },1500)
                 }
             }else{
                 if (10000 == score){
@@ -146,13 +157,16 @@ function onkey(key_name){
                         document.getElementById("datassss").innerHTML += "<br>score:" + score
                     },500)
                     setTimeout(() => {
-                        document.getElementById("datassss").innerHTML += "<br><a class='button' onclick='submit_data()'>Submit</a>"
-                        start = null
+                        document.getElementById("datassss").innerHTML += "<br>TPS[type/second]:" + (score / (time / 1000)).toFixed(2)
                     },1000)
+                    setTimeout(() => {
+                        document.getElementById("datassss").innerHTML += "<br><a class='button' onclick='submit_data()'>record</a>"
+                        start = null
+                    },1500)
                 }
             }
         }
-    }else if (start == null){
+    }else if (start == null && key_name == "9"){
         start = false
         document.getElementById("datassss").innerHTML = ""
         document.getElementById("score").innerText = "No.1"
@@ -295,6 +309,11 @@ function timer(){
         }else{
             document.getElementById("timer").style.visibility = ""
             document.getElementById("setting_button").style.display = start == null || start == "nulla" ? "none" : ""
+        }
+        if (start == null){
+            document.getElementById("press9").style.display = ""
+        }else{
+            document.getElementById("press9").style.display = "none"
         }
     }
 }

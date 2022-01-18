@@ -1,3 +1,14 @@
+@keyframes Highlight_{
+    0%{
+        color: rgb(19, 19, 19);
+    }
+    50%{
+        color: white;
+    }
+    100%{
+        color: rgb(19, 19, 19);
+    }
+}
 html,body{
     user-select: none;
     -ms-user-select: none;
@@ -215,4 +226,11 @@ input{
 select.ranking{
     background-color: rgb(19, 19, 19);
     color: white;
+}
+.button.color-inversion{
+    background-color: rgb(26, 26, 26);
+    color: white;
+}
+.Highlight{
+    animation: Highlight_ 1s ease infinite;
 }

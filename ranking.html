@@ -75,7 +75,7 @@
                 a = 1
                 datas[type].forEach((value,index) => {
                     if ((new Date() - new Date(value.date)) / (1000*60*60*24) <= Number(document.getElementById("time").value)){
-                        html += "<tr class='ranking'><td class='ranking'>No." + a + "</td><td class='ranking'>" + value.name + "</td><td class='ranking'>" + (aaaaaaa[type] / (value.time/1000)).toFixed(2) + "</td><td class='ranking'>" + (value.time/1000) + "s</td><td class='ranking'>" + new Date(value.date).toLocaleString() + "</td></tr>"
+                        html += "<tr class='ranking'><td class='ranking'>No." + a + "</td><td class='ranking'>" + value.name + "</td><td class='ranking'>" + (aaaaaaa[type] / (value.time/1000)).toFixed(2) + "</td><td class='ranking'>" + (value.time/1000).toFixed(3) + "s</td><td class='ranking'>" + new Date(value.date).toLocaleString() + "</td></tr>"
                         a += 1
                     }
                 })
@@ -95,7 +95,7 @@
                 var a = 1
                 datas[type].forEach((value,index) => {
                     if ((new Date() - new Date(value.date)) / (1000*60*60*24) <= Number(document.getElementById("time").value)){
-                        html += "<tr class='ranking'><td class='ranking'>No." + a + "</td><td class='ranking'>" + value.name + "</td><td class='ranking'>" + value.score + "</td><td class='ranking'>" + (value.score / (value.time/1000)).toFixed(2) + "</td><td class='ranking'>" + (value.time/1000) + "s</td><td class='ranking'>" + new Date(value.date).toLocaleString() + "</td></tr>"
+                        html += "<tr class='ranking'><td class='ranking'>No." + a + "</td><td class='ranking'>" + value.name + "</td><td class='ranking'>" + value.score + "</td><td class='ranking'>" + (value.score / (value.time/1000)).toFixed(2) + "</td><td class='ranking'>" + (value.time/1000).toFixed(3) + "s</td><td class='ranking'>" + new Date(value.date).toLocaleString() + "</td></tr>"
                         a += 1
                     }
                 })
