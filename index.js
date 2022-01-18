@@ -85,10 +85,10 @@ function onkey(key_name){
                         document.getElementById("datassss").innerHTML += "<br>type:Speedpi Counts" + document.getElementById("count-setting").value
                     },500)
                     setTimeout(() => {
-                        document.getElementById("datassss").innerHTML += "<br>TPS[type/second]:" + (score / (time / 1000)).toFixed(2)
+                        document.getElementById("datassss").innerHTML += "<br>TPS:" + (score / (time / 1000)).toFixed(2)
                     },1000)
                     setTimeout(() => {
-                        document.getElementById("datassss").innerHTML += "<br>score:" + (score - 1)
+                        document.getElementById("datassss").innerHTML += "<br>score:" + score
                         start = null
                     },1500)
                 }else{
@@ -107,7 +107,7 @@ function onkey(key_name){
                         document.getElementById("datassss").innerHTML += "<br>score:" + score
                     },500)
                     setTimeout(() => {
-                        document.getElementById("datassss").innerHTML += "<br>TPS[type/second]:" + (score / (time / 1000)).toFixed(2)
+                        document.getElementById("datassss").innerHTML += "<br>TPS:" + (score / (time / 1000)).toFixed(2)
                     },1000)
                     setTimeout(() => {
                         document.getElementById("datassss").innerHTML += "<br><a class='button' onclick='submit_data()'>record</a>"
@@ -133,7 +133,7 @@ function onkey(key_name){
                         document.getElementById("datassss").innerHTML += "<br>type:Speedpi Counts" + score
                     },500)
                     setTimeout(() => {
-                        document.getElementById("datassss").innerHTML += "<br>TPS[type/second]:" + (score / (time / 1000)).toFixed(2)
+                        document.getElementById("datassss").innerHTML += "<br>TPS:" + (score / (time / 1000)).toFixed(2)
                     },1000)
                     setTimeout(() => {
                         document.getElementById("datassss").innerHTML += "<br><a class='button' onclick='submit_data()'>record</a>"
@@ -157,7 +157,7 @@ function onkey(key_name){
                         document.getElementById("datassss").innerHTML += "<br>score:" + score
                     },500)
                     setTimeout(() => {
-                        document.getElementById("datassss").innerHTML += "<br>TPS[type/second]:" + (score / (time / 1000)).toFixed(2)
+                        document.getElementById("datassss").innerHTML += "<br>TPS:" + (score / (time / 1000)).toFixed(2)
                     },1000)
                     setTimeout(() => {
                         document.getElementById("datassss").innerHTML += "<br><a class='button' onclick='submit_data()'>record</a>"
