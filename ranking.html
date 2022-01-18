@@ -24,23 +24,35 @@
 </head>
 <body>
     <h1>Ranking</h1>
-    <select id="time" class="ranking" onchange="update_table()">
-        <option value="Infinity">all</option>
-        <option value="7">7 days before</option>
-        <option value="31">31 days before</option>
-        <option value="365">365 days before</option>
-    </select>
-    <select id="type" class="ranking" onchange="update_table()">
-        <optgroup label="endress">
-            <option value="0">endress</option>
-        </optgroup>
-        <optgroup label="count">
-            <option value="1">10</option>
-            <option value="2">100</option>
-            <option value="3">1000</option>
-            <option value="4">10000</option>
-        </optgroup>
-    </select><br><br><br>
+    <table class="ranking">
+        <tr>
+        <td class="setting-1">time</td>
+        <td class="setting-2"><select id="time" class="ranking" onchange="update_table()">
+            <option value="Infinity">all</option>
+            <option value="7">7 days before</option>
+            <option value="31">31 days before</option>
+            <option value="365">365 days before</option>
+        </select></td></tr><tr>
+        <td class="setting-1">category</td>
+        <td class="setting-2">
+        <select id="type" class="ranking" onchange="update_table()">
+            <optgroup label="endress">
+                <option value="0">endress</option>
+            </optgroup>
+            <optgroup label="count">
+                <option value="1">10</option>
+                <option value="2">100</option>
+                <option value="3">1000</option>
+                <option value="4">10000</option>
+            </optgroup>
+        </select></td></tr><tr>
+        <td class="setting-1">sort</td>
+        <td class="setting-2">
+        <select id="sort" class="ranking" onchange="update_table()">
+            <option value="0">defalt</option>
+            <option value="1">TPS</option>
+        </select></td></tr>
+    </table>
     <table class="ranking">
         <thead id="thead">
             <tr class='ranking'>
@@ -50,6 +62,22 @@
         <tbody id="tbody"></tbody>
     </table>
     <script>
+        function getUrlQueries() {
+            var queryStr = window.location.search.slice(1);
+            var queries = {};
+            if (!queryStr) {
+                return queries;
+            }
+            queryStr.split('&').forEach(function(queryStr) {
+                var queryArr = queryStr.split('=');
+                queries[queryArr[0]] = queryArr[1];
+            });
+            return queries;
+        }
+        var Q = getUrlQueries()
+        if ("category" in Q){
+            document.getElementById("type").value = Q.category
+        }
         var type = 0
         var html = ""
         var datas = [[],[],[],[],[]]
@@ -70,7 +98,11 @@
             </tr>`
                 html = ""
                 datas[type].sort((a,b) => {
-                    return a.time - b.time
+                    if (document.getElementById("sort").value == "0"){
+                        return a.time - b.time
+                    }else{
+                        return (-aaaaaaa[type] / a.time) + aaaaaaa[type] / b.time
+                    }
                 })
                 a = 1
                 datas[type].forEach((value,index) => {
@@ -86,10 +118,14 @@
             </tr>`
                 html = ""
                 datas[type].sort((a,b) => {
-                    if (a.score == b.score){
-                        return a.time - b.time
-                    }else{
-                        return b.score - a.score
+                    if (document.getElementById("sort").value == "0"){
+                        if (a.score == b.score){
+                            return a.time - b.time
+                        }else{
+                            return b.score - a.score
+                        }
+                    }else if (document.getElementById("sort").value == "1"){
+                        return (-a.score / a.time) + b.score / b.time
                     }
                 })
                 var a = 1

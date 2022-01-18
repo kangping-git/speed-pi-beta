@@ -326,6 +326,11 @@ function update_tenkey(){
         document.getElementById("keyboard-1").classList.remove("on")
     }
 }
+if (document.getElementById("content").value == "count"){
+    document.getElementById("ranking_link").href = "./ranking.html?category=" + (Math.floor(Math.log10(document.getElementById("count-setting").value)))
+}else{
+    document.getElementById("ranking_link").href = "./ranking.html?category=0"
+}
 function update_setting(){
     localStorage.setItem("sound",document.getElementById("sound").checked)
     localStorage.setItem("speed_start",document.getElementById("speed-start").checked)
@@ -334,5 +339,10 @@ function update_setting(){
     localStorage.setItem("content",document.getElementById("content").value)
     localStorage.setItem("count-setting",document.getElementById("count-setting").value)
     localStorage.setItem("name",document.getElementById("name").value)
+    if (document.getElementById("content").value == "count"){
+        document.getElementById("ranking_link").href = "./ranking.html?category=" + (Math.floor(Math.log10(document.getElementById("count-setting").value)))
+    }else{
+        document.getElementById("ranking_link").href = "./ranking.html?category=0"
+    }
 }
 update_tenkey()
