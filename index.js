@@ -234,15 +234,15 @@ function submit_data(){
                     name:document.getElementById("name").value,
                     date:finish_time
                 })
-            }else[
+            }else{
                 endress.push({
                     time:time,
                     name:document.getElementById("name").value,
                     date:finish_time,
                     score:score
                 })
-            ]
-            onkey(1)
+            }
+            onkey(9)
         })
     }else{
         if (document.getElementById("content").value == "count"){
@@ -251,15 +251,15 @@ function submit_data(){
                 name:document.getElementById("name").value,
                 date:finish_time
             })
-        }else[
+        }else{
             endress.push({
                 time:time,
                 name:document.getElementById("name").value,
                 date:finish_time,
                 score:score
             })
-        ]
-        onkey(1)
+        }
+        onkey(9)
     }
 }
 var finish_time = null
