@@ -38,6 +38,8 @@ html,body{
 .button{
     border-radius: 5px;
     padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
     color: rgb(19, 19, 19);
     display: inline-block;
     background-color: white;
@@ -164,6 +166,7 @@ table{
     line-height: 30px;
     margin: 5px;
     box-shadow: 5px 5px 0 black;
+    padding: 5px;
 }
 #buttons{
     position: absolute;

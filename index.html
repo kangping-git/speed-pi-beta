@@ -7,6 +7,7 @@
     <title>speed pi beta</title>
     <script src="index.js" defer></script>
     <link rel="stylesheet" href="./index.css">
+    <link rel="icon" href="/favicon.ico" />
     <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-auth.js"></script>
@@ -51,11 +52,6 @@
                     <h2>setting</h2>
                     <div style="height: calc(90% - 50px);">
                         <table style="width: 100%;">
-                            <thead>
-                                <tr>
-                                    <th class="setting-1">setting item</th><th class="setting-2">setting</th>
-                                </tr>
-                            </thead>
                             <tbody>
                                 <tr>
                                     <td class="setting-1"><span style="font-size: 11pt;">Name</span></td><td class="setting-2"><input id="name" value="no name"></td>
@@ -64,7 +60,7 @@
                                     <td class="setting-1"><span style="font-size: 11pt;">sound</td><td class="setting-2"><input type="checkbox" onchange="update_setting()" id="sound" class="switch"><label for="sound" class="switch-main"></label></span></td><br>
                                 </tr>
                                 <tr>
-                                    <td class="setting-1"><span style="font-size: 11pt;">timer display</td><td class="setting-2"><input type="checkbox" onchange="update_setting()" id="hidden_timer" class="switch"><label for="hidden_timer" class="switch-main"></label></td></span>
+                                    <td class="setting-1"><span style="font-size: 11pt;">timer hidden</td><td class="setting-2"><input type="checkbox" onchange="update_setting()" id="hidden_timer" class="switch"><label for="hidden_timer" class="switch-main"></label></td></span>
                                 </tr>
                                 <tr>
                                     <td class="setting-1"><span style="font-size: 11pt;">speed start</td><td class="setting-2"><input type="checkbox" onchange="update_setting()" id="speed-start" class="switch"><label for="speed-start" class="switch-main"></label></span></td><br>
