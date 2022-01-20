@@ -10,6 +10,7 @@
     <link rel="apple-touch-icon" sizes="48x48" href="/favicon.ico">
     <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-auth.js"></script>
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyDZsD6Lspm6PJ9VvCd3ReJe5T6ex36nRc8",
@@ -85,13 +86,17 @@
         var datas = [[],[],[],[],[]]
         var aaaaaaa = ["",10,100,1000,10000]
         update_table()
-        var dataa = [firebase.database().ref().child('endress'),firebase.database().ref().child('count/10'),firebase.database().ref().child('count/100'),firebase.database().ref().child('count/1000'),firebase.database().ref().child('count/10000')]
-        dataa.forEach((value,index) => {
-            value.on("child_added",(val) => {
-                datas[index].push(val.val())
-                update_table()
+        if (firebase.auth().currentUser == null){
+            firebase.auth().signInWithEmailAndPassword("noreply@speed-pi-database.firebaseapp.com","0123456789abcdefghijklmnopqrstuvwxyz")
+        }else{
+            var dataa = [firebase.database().ref().child('endress'),firebase.database().ref().child('count/10'),firebase.database().ref().child('count/100'),firebase.database().ref().child('count/1000'),firebase.database().ref().child('count/10000')]
+            dataa.forEach((value,index) => {
+                value.on("child_added",(val) => {
+                    datas[index].push(val.val())
+                    update_table()
+                })
             })
-        })
+        }
         function update_table(){
             type = document.getElementById("type").value
             if (Number(type) > 0){
