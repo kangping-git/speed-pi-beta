@@ -42,6 +42,7 @@ var count_100 = firebase.database().ref().child('count/100')
 var count_1000 = firebase.database().ref().child('count/1000')
 var count_10000 = firebase.database().ref().child('count/10000')
 var endress = firebase.database().ref().child('endress')
+var _1minute = firebase.database().ref().child('1minute')
 var on_up = false
 var keys = [0,1,2,3,4,5,6,7,8,9]
 var aaaaaa = ["&ensp;","&ensp;","&ensp;","&ensp;","&ensp;","&ensp;","&ensp;","&ensp;","&ensp;","&ensp;","&ensp;","&ensp;","&ensp;","3","."]
@@ -94,7 +95,7 @@ function onkey(key_name){
                         document.getElementById("datassss").innerHTML += "<br>score:" + score
                         start = null
                     },2000)
-                }else{
+                }else if (document.getElementById("content").value == "endress"){
                     document.getElementById("score").innerText = ""
                     window.time = new Date() - start_time
                     start = "nulla"
@@ -119,6 +120,22 @@ function onkey(key_name){
                         document.getElementById("datassss").innerHTML += "<br><a class='button' onclick='submit_data()'>record</a>"
                         start = null
                     },2000)
+                }else{
+                    document.getElementById("score").innerText = ""
+                    window.time = - new Date() + (start_time.getTime() + 60*1000)
+                    start = "nulla"
+                    var s = new Date()
+                    fetch("https://worldtimeapi.org/api/timezone/Asia/Tokyo")
+                    .then(t => t.json())
+                    .then(t => {finish_time = new Date(new Date(t.utc_datetime) - (new Date() - s)).toUTCString()})
+                    document.getElementById("timer").innerText = ("00" + Math.floor(time / (60*1000))).slice(-2) + ":" + ("00" + Math.floor(time / 1000) % 60).slice(-2) + "." + ("000" + Math.floor(time / 1) % 1000).slice(-3)
+                    setTimeout(() => {
+                        document.getElementById("datassss").innerHTML = "failed!"
+                    })
+                    setTimeout(() => {
+                        document.getElementById("datassss").innerHTML += "<br>score:" + score
+                        start = null
+                    },500)
                 }
             }
             if (document.getElementById("content").value == "count"){
@@ -149,7 +166,7 @@ function onkey(key_name){
                         start = null
                     },2000)
                 }
-            }else{
+            }else if (document.getElementById("content").value == "endress"){
                 if (10000 == score){
                     document.getElementById("score").innerText = ""
                     window.time = new Date() - start_time
@@ -246,9 +263,15 @@ function submit_data(){
                     name:document.getElementById("name").value,
                     date:finish_time
                 })
-            }else{
+            }else if (document.getElementById("content").value == "endress"){
                 endress.push({
                     time:time,
+                    name:document.getElementById("name").value,
+                    date:finish_time,
+                    score:score
+                })
+            }else{
+                _1minute.push({
                     name:document.getElementById("name").value,
                     date:finish_time,
                     score:score
@@ -263,9 +286,15 @@ function submit_data(){
                 name:document.getElementById("name").value,
                 date:finish_time
             })
-        }else{
+        }else if (document.getElementById("content").value == "endress"){
             endress.push({
                 time:time,
+                name:document.getElementById("name").value,
+                date:finish_time,
+                score:score
+            })
+        }else{
+            _1minute.push({
                 name:document.getElementById("name").value,
                 date:finish_time,
                 score:score
@@ -311,7 +340,36 @@ function timer(){
         document.getElementById("load").style.display = "none"
         document.getElementById("main").style.display = ""
         if (start == true){
-            document.getElementById("timer").innerText = ("00" + Math.floor((new Date() - start_time) / (60*1000))).slice(-2) + ":" + ("00" + Math.floor((new Date() - start_time) / 1000) % 60).slice(-2) + "." + ("000" + Math.floor((new Date() - start_time) / 1) % 1000).slice(-3)
+            if (document.getElementById("content").value == "1minute"){
+                if ((start_time.getTime() + 60*1000) - new Date() >= 0){
+                    document.getElementById("timer").innerText = ("00" + Math.floor(((start_time.getTime() + 60*1000) - new Date()) / (60*1000))).slice(-2) + ":" + ("00" + Math.floor(((start_time.getTime() + 60*1000) - new Date()) / 1000) % 60).slice(-2) + "." + ("000" + Math.floor(((start_time.getTime() + 60*1000) - new Date()) / 1) % 1000).slice(-3)
+                }else{
+                    document.getElementById("timer").innerText = "00:00.000"
+                    start = "nulla"
+                    document.getElementById("score").innerText = ""
+                    window.time = new Date() - start_time
+                    start = "nulla"
+                    var s = new Date()
+                    fetch("https://worldtimeapi.org/api/timezone/Asia/Tokyo")
+                    .then(t => t.json())
+                    .then(t => {finish_time = new Date(new Date(t.utc_datetime) - (new Date() - s)).toUTCString()})
+                    setTimeout(() => {
+                        document.getElementById("datassss").innerHTML = "complete!"
+                    })
+                    setTimeout(() => {
+                        document.getElementById("datassss").innerHTML += "<br>score:" + score
+                    },5000)
+                    setTimeout(() => {
+                        document.getElementById("datassss").innerHTML += "<br>TPS:" + (score / (60)).toFixed(2)
+                    },1000)
+                    setTimeout(() => {
+                        document.getElementById("datassss").innerHTML += "<br><a class='button' onclick='submit_data()'>record</a>"
+                        start = null
+                    },1500)
+                }
+            }else{
+                document.getElementById("timer").innerText = ("00" + Math.floor((new Date() - start_time) / (60*1000))).slice(-2) + ":" + ("00" + Math.floor((new Date() - start_time) / 1000) % 60).slice(-2) + "." + ("000" + Math.floor((new Date() - start_time) / 1) % 1000).slice(-3)
+            }
             if (document.getElementById("hidden_timer").checked == true){
                 document.getElementById("timer").style.visibility = "hidden"
             }else{
@@ -340,8 +398,10 @@ function update_tenkey(){
 }
 if (document.getElementById("content").value == "count"){
     document.getElementById("ranking_link").href = "./ranking.html?category=" + (Math.floor(Math.log10(document.getElementById("count-setting").value)))
-}else{
+}else if (document.getElementById("content").value == "endress"){
     document.getElementById("ranking_link").href = "./ranking.html?category=0"
+}else{
+    document.getElementById("ranking_link").href = "./ranking.html?category=5"
 }
 function update_setting(){
     localStorage.setItem("sound",document.getElementById("sound").checked)
@@ -353,8 +413,10 @@ function update_setting(){
     localStorage.setItem("name",document.getElementById("name").value)
     if (document.getElementById("content").value == "count"){
         document.getElementById("ranking_link").href = "./ranking.html?category=" + (Math.floor(Math.log10(document.getElementById("count-setting").value)))
-    }else{
+    }else if (document.getElementById("content").value == "endress"){
         document.getElementById("ranking_link").href = "./ranking.html?category=0"
+    }else{
+        document.getElementById("ranking_link").href = "./ranking.html?category=5"
     }
 }
 update_tenkey()
