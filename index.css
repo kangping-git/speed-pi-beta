@@ -235,5 +235,6 @@ select.ranking{
     color: white;
 }
 .Highlight{
+    cursor: pointer;
     animation: Highlight_ 1s ease infinite;
 }

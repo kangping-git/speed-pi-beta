@@ -195,7 +195,7 @@ function onkey(key_name){
                 }
             }
         }
-    }else if (start == null && key_name == "9"){
+    }else if (start == null && key_name == "qr"){
         start = false
         document.getElementById("datassss").innerHTML = ""
         document.getElementById("score").innerText = "No.1"
@@ -247,7 +247,6 @@ window.onmousedown = function(e){
 window.onmouseup = function(e){
     on_upa = false
 }
-load_file("pi")
 for (var i = 0;i < 360;i += 30){
     circles.push(i)
 }
@@ -312,6 +311,14 @@ if (localStorage.getItem("sound") != undefined){
     document.getElementById("content").value = localStorage.getItem("content")
     document.getElementById("count-setting").value = localStorage.getItem("count-setting")
     document.getElementById("name").value = localStorage.getItem("name")
+    if (localStorage.getItem("const") != undefined){
+        document.getElementById("const").value = localStorage.getItem("const")
+        load_file(localStorage.getItem("const"))
+    }else{
+        load_file("pi")
+    }
+}else{
+    load_file("pi")
 }
 function timer(){
     requestAnimationFrame(timer)
@@ -358,7 +365,7 @@ function timer(){
                     })
                     setTimeout(() => {
                         document.getElementById("datassss").innerHTML += "<br>score:" + score
-                    },5000)
+                    },500)
                     setTimeout(() => {
                         document.getElementById("datassss").innerHTML += "<br>TPS:" + (score / (60)).toFixed(2)
                     },1000)
@@ -411,6 +418,7 @@ function update_setting(){
     localStorage.setItem("content",document.getElementById("content").value)
     localStorage.setItem("count-setting",document.getElementById("count-setting").value)
     localStorage.setItem("name",document.getElementById("name").value)
+    localStorage.setItem("const",document.getElementById("const").value)
     if (document.getElementById("content").value == "count"){
         document.getElementById("ranking_link").href = "./ranking.html?category=" + (Math.floor(Math.log10(document.getElementById("count-setting").value)))
     }else if (document.getElementById("content").value == "endress"){
