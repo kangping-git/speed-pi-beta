@@ -195,14 +195,14 @@ function onkey(key_name){
                 }
             }
         }
-    }else if (start == null && key_name == ","){
+    }else if (start == null && key_name == "Enter"){
         start = false
         document.getElementById("datassss").innerHTML = ""
         document.getElementById("score").innerText = "No.1"
         document.getElementById("timer").innerText = "00:00.000"
         aaaaaa = [makeRepeated(["&ensp;"],15),pi_data.start].flat().slice(-15)
         document.getElementById("score").innerText = ""
-    }else if (start == false && document.getElementById("speed-start").checked == false && key_name != ","){
+    }else if (start == false && document.getElementById("speed-start").checked == false && key_name != "Enter"){
         score = 0
         start_time = new Date()
         start = true
@@ -276,7 +276,7 @@ function submit_data(){
                     score:score
                 })
             }
-            onkey(",")
+            onkey("Enter")
         })
     }else{
         if (document.getElementById("content").value == "count"){
@@ -299,7 +299,7 @@ function submit_data(){
                 score:score
             })
         }
-        onkey(",")
+        onkey("Enter")
     }
 }
 var finish_time = null

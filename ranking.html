@@ -87,8 +87,8 @@
         var type = 0
         var html = ""
         var datas = [[],[],[],[],[],[]]
-        var aaaaaaa = ["","",10,100,1000,10000]
-            var dataa = [firebase.database().ref().child('endress'),firebase.database().ref().child('count/10'),firebase.database().ref().child('count/100'),firebase.database().ref().child('count/1000'),firebase.database().ref().child('count/10000'),firebase.database().ref().child('1minute')]
+        var aaaaaaa = ["",10,100,1000,10000,""]
+        var dataa = [firebase.database().ref().child('endress'),firebase.database().ref().child('count/10'),firebase.database().ref().child('count/100'),firebase.database().ref().child('count/1000'),firebase.database().ref().child('count/10000'),firebase.database().ref().child('1minute')]
         update_table()
         if (firebase.auth().currentUser == null){
             firebase.auth().signInWithEmailAndPassword("noreply@speed-pi-database.firebaseapp.com","0123456789abcdefghijklmnopqrstuvwxyz")
