@@ -55,7 +55,7 @@
                         <table style="width: 100%;">
                             <tbody>
                                 <tr>
-                                    <td class="setting-1"><span style="font-size: 11pt;">Name</span></td><td class="setting-2"><input id="name" value="no name"></td>
+                                    <td class="setting-1"><span style="font-size: 11pt;">Name</span></td><td class="setting-2"><input id="name" value="no name" onchange="update_setting()"></td>
                                 </tr>
                                 <tr>
                                     <td class="setting-1"><span style="font-size: 11pt;">sound</td><td class="setting-2"><input type="checkbox" onchange="update_setting()" id="sound" class="switch"><label for="sound" class="switch-main"></label></span></td><br>
@@ -118,7 +118,7 @@
                 <a class="button key">7</a><a class="button key">8</a><a class="button key">9</a><br>
                 <a class="button key">0</a>
             </div><br>
-            <a id="press9" class="Highlight" style="font-size: 20pt;" onclick="onkey('qr')">click here to restart</a><br>
+            <a id="press9" class="Highlight" style="font-size: 20pt;" onclick="onkey(',')">press , or click here to restart</a><br>
             <a class="button" onclick="open_dialog('aaa')" id="setting_button">setting</a><br><br>
             <a style="text-decoration:none;" rel="noopener" target="_blank" href="./ranking.html" id="ranking_link" class="button">ranking</a>
         </div>
