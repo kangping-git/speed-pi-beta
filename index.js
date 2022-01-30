@@ -48,7 +48,7 @@ var keys = [0,1,2,3,4,5,6,7,8,9]
 var aaaaaa = ["&ensp;","&ensp;","&ensp;","&ensp;","&ensp;","&ensp;","&ensp;","&ensp;","&ensp;","&ensp;","&ensp;","&ensp;","&ensp;","3","."]
 function onkey(key_name){
     if (keys.includes(Number(key_name))){
-        if (document.getElementById("sound").checked == true){
+        if (document.getElementById("sound").checked == true && start == true){
             play_kata()
         }
     }
@@ -260,20 +260,23 @@ function submit_data(){
                 window["count_" + document.getElementById("count-setting").value].push({
                     time:time,
                     name:document.getElementById("name").value,
-                    date:finish_time
+                    date:finish_time,
+                    type:document.getElementById("const").value
                 })
             }else if (document.getElementById("content").value == "endress"){
                 endress.push({
                     time:time,
                     name:document.getElementById("name").value,
                     date:finish_time,
-                    score:score
+                    score:score,
+                    type:document.getElementById("const").value
                 })
             }else{
                 _1minute.push({
                     name:document.getElementById("name").value,
                     date:finish_time,
-                    score:score
+                    score:score,
+                    type:document.getElementById("const").value
                 })
             }
             onkey("Enter")
@@ -283,20 +286,23 @@ function submit_data(){
             window["count_" + document.getElementById("count-setting").value].push({
                 time:time,
                 name:document.getElementById("name").value,
-                date:finish_time
+                date:finish_time,
+                type:document.getElementById("const").value
             })
         }else if (document.getElementById("content").value == "endress"){
             endress.push({
                 time:time,
                 name:document.getElementById("name").value,
                 date:finish_time,
-                score:score
+                score:score,
+                type:document.getElementById("const").value
             })
         }else{
             _1minute.push({
                 name:document.getElementById("name").value,
                 date:finish_time,
-                score:score
+                score:score,
+                type:document.getElementById("const").value
             })
         }
         onkey("Enter")
