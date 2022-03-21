@@ -33,17 +33,6 @@
     </div>
     <div id="main">
         <div class="mask">
-            <div class="dialog" data-name="fin">
-                <div class="dialog-head">
-                    finish!
-                    <a style="position: absolute;top: 10px;right: 10px;font-size: 10pt;cursor: pointer;" onclick="close_dialog('fin')">x</a>
-                </div>
-                <div class="dialog-main">
-                    <h1>
-                        Your finished Speedpi Counts
-                    </h1>
-                </div>
-            </div>
             <div class="dialog" data-name="aaa">
                 <div class="dialog-head" onmouseover="javascript:on_up = true" onmouseleave="javascript:on_up = false">
                     setting
@@ -83,10 +72,11 @@
                                         <option value="count">Speedpi Type</option>
                                         <option value="endress">Speedpi Super</option>
                                         <option value="1minute">Speedpi 1minute</option>
+                                        <option value="random">Speedpi Random</option>
                                     </select></td>
                                 </tr>
                                 <tr id="count-s">
-                                    <td class="setting-1"><span style="font-size: 11pt;">Speedpi Type Setting</span></td><td class="setting-2"><select id="count-setting" onchange="update_setting()">
+                                    <td class="setting-1"><span style="font-size: 11pt;">category details settings</span></td><td class="setting-2"><select id="count-setting" onchange="update_setting()">
                                         <option value="10">10</option>
                                         <option value="100">100</option>
                                         <option value="1000">1000</option>
@@ -102,6 +92,7 @@
         </div>
         <h1 id="timer">00:00.000</h1>
         <a id="pi"></a><br>
+        <div id="pi2" style="color: white;width: 250px;margin-left: auto;margin-right: auto;text-align: left;font-size: x-large;"></div>
         <a id="status"></a><br>
         <h3 id="score"></h3>
         <span id="datassss"></span>

@@ -41,8 +41,13 @@ var count_10 = firebase.database().ref().child('count/10')
 var count_100 = firebase.database().ref().child('count/100')
 var count_1000 = firebase.database().ref().child('count/1000')
 var count_10000 = firebase.database().ref().child('count/10000')
+var random_10 = firebase.database().ref().child('random/10')
+var random_100 = firebase.database().ref().child('random/100')
+var random_1000 = firebase.database().ref().child('random/1000')
+var random_10000 = firebase.database().ref().child('random/10000')
 var endress = firebase.database().ref().child('endress')
 var _1minute = firebase.database().ref().child('1minute')
+var score2 = 0
 var on_up = false
 var keys = [0,1,2,3,4,5,6,7,8,9]
 var aaaaaa = ["&ensp;","&ensp;","&ensp;","&ensp;","&ensp;","&ensp;","&ensp;","&ensp;","&ensp;","&ensp;","&ensp;","&ensp;","&ensp;","3","."]
@@ -54,26 +59,34 @@ function onkey(key_name){
     }
     if (start == false && document.getElementById("speed-start").checked == true){
         if (dialog_opened != true){
-            score = 0
-            start_time = new Date()
-            start = true
-            aaaaaa = [makeRepeated(["&ensp;"],15),pi_data.start].flat().slice(-15)
-            document.getElementById("score").innerText = "No.1"
+            if (document.getElementById("content").value == "random"){
+            }else{
+                score = 0
+                start_time = new Date()
+                start = true
+                score2 = 0
+                aaaaaa = [makeRepeated(["&ensp;"],15),pi_data.start].flat().slice(-15)
+                document.getElementById("score").innerText = "No.1"
+            }
         }
     }
     if (start == true){
         if (keys.includes(Number(key_name))){
             if (key_name == pi_data.main[score]){
-                document.getElementById("score").innerText = "No." + (score + 2)
-                aaaaaa.push(key_name)
-                aaaaaa.shift()
-                score += 1
+                if (document.getElementById("content").value == "random"){
+                    score = Math.floor(Math.random() * document.getElementById("count-setting").value)
+                    document.getElementById("pi2").innerHTML += "  " + key_name + " <a style=''>correct!</a>"
+                    score2 += 1
+                }else{
+                    document.getElementById("score").innerText = "No." + (score + 2)
+                    aaaaaa.push(key_name)
+                    aaaaaa.shift()
+                    score += 1
+                }
             }else{
                 if (document.getElementById("sound").checked == true){
                     play_No()
                 }
-                aaaaaa.push(`<a style="font-weight: 900;">${pi_data.main[score]}</a>`)
-                aaaaaa.shift()
                 if (document.getElementById("content").value == "count"){
                     document.getElementById("score").innerText = ""
                     window.time = new Date() - start_time
@@ -120,6 +133,9 @@ function onkey(key_name){
                         document.getElementById("datassss").innerHTML += "<br><a class='button' onclick='submit_data()'>record</a>"
                         start = null
                     },2000)
+                }else if (document.getElementById("content").value == "random"){
+                    document.getElementById("pi2").innerHTML += "  " + key_name + " <a style='color: red;'>" + pi_data.main[score] + "</a>"
+                    score = Math.floor(Math.random() * document.getElementById("count-setting").value)
                 }else{
                     document.getElementById("score").innerText = ""
                     window.time = - new Date() + (start_time.getTime() + 60*1000)
@@ -137,6 +153,11 @@ function onkey(key_name){
                         start = null
                     },500)
                 }
+            }
+            if (document.getElementById("content").value == "random" && document.getElementById("pi2").innerText.split("\n").length < 5){
+                document.getElementById("pi2").innerHTML += "<br>No." + (("____" + (score + 1)).slice(-4)).replace(/_/g,"&nbsp;")
+            }else if (document.getElementById("content").value == "random"){
+                start = null
             }
             if (document.getElementById("content").value == "count"){
                 if (document.getElementById("count-setting").value == score){
@@ -196,18 +217,37 @@ function onkey(key_name){
             }
         }
     }else if (start == null && key_name == "Enter"){
-        start = false
-        document.getElementById("datassss").innerHTML = ""
-        document.getElementById("score").innerText = "No.1"
-        document.getElementById("timer").innerText = "00:00.000"
-        aaaaaa = [makeRepeated(["&ensp;"],15),pi_data.start].flat().slice(-15)
-        document.getElementById("score").innerText = ""
-    }else if (start == false && document.getElementById("speed-start").checked == false && key_name != "Enter"){
-        score = 0
-        start_time = new Date()
-        start = true
-        aaaaaa = [makeRepeated(["&ensp;"],15),pi_data.start].flat().slice(-15)
-        document.getElementById("score").innerText = "No.1"
+        if (document.getElementById("content").value == "random"){
+            start = false
+            document.getElementById("pi2").innerText = ""
+            document.getElementById("datassss").innerHTML = ""
+            document.getElementById("timer").innerText = "00:00.000"
+            document.getElementById("score").innerText = ""
+        }else{
+            start = false
+            document.getElementById("datassss").innerHTML = ""
+            document.getElementById("score").innerText = "No.1"
+            document.getElementById("timer").innerText = "00:00.000"
+            aaaaaa = [makeRepeated(["&ensp;"],15),pi_data.start].flat().slice(-15)
+            document.getElementById("score").innerText = ""
+        }
+    }else if (start == false && key_name != "Enter"){
+        if (document.getElementById("content").value == "random"){
+            score = Math.floor(Math.random() * document.getElementById("count-setting").value)
+            start_time = new Date()
+            start = true
+            score2 = 0
+            aaaaaa = []
+            document.getElementById("score").innerText = ""
+            document.getElementById("pi2").innerHTML = "No." + (("____" + (score + 1)).slice(-4)).replace(/_/g,"&nbsp;")
+        }else if (document.getElementById("speed-start").checked == false){
+            score = 0
+            start_time = new Date()
+            start = true
+            score2 = 0
+            aaaaaa = [makeRepeated(["&ensp;"],15),pi_data.start].flat().slice(-15)
+            document.getElementById("score").innerText = "No.1"
+        }
     }
     document.getElementById("pi").innerHTML = aaaaaa.join("")
 }
@@ -328,10 +368,20 @@ if (localStorage.getItem("sound") != undefined){
 }
 function timer(){
     requestAnimationFrame(timer)
-    if (document.getElementById("content").value == "count"){
+    if (document.getElementById("content").value == "random"){
+        document.getElementById("pi").style.display = "none"
+    }else{
+        document.getElementById("pi").style.display = ""
+    }
+    if (document.getElementById("content").value == "count" || document.getElementById("content").value == "random"){
         document.getElementById("count-s").style.display = ""
     }else{
         document.getElementById("count-s").style.display = "none"
+    }
+    if (document.getElementById("content").value == "random"){
+        document.getElementById("pi").style.background = "rgba(0,0,0,0)"
+        document.getElementById("pi").style.color = "white"
+        document.getElementById("pi").style.webkitTextFillColor = "white"
     }
     if (load == true){
         canvas.width = 200 * window.devicePixelRatio
