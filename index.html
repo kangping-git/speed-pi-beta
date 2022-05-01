@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,9 +24,10 @@
             appId: "1:744730019739:web:88c0a38a65c3badbff033e",
             measurementId: "G-H0PVNZSRXX"
         };
-        firebase.initializeApp(firebaseConfig)
+        firebase.initializeApp(firebaseConfig);
     </script>
 </head>
+
 <body style="text-align: center;">
     <div id="load">
         <canvas id="loader"></canvas>
@@ -36,7 +38,8 @@
             <div class="dialog" data-name="aaa">
                 <div class="dialog-head" onmouseover="javascript:on_up = true" onmouseleave="javascript:on_up = false">
                     setting
-                    <a style="position: absolute;top: 10px;right: 10px;font-size: 10pt;cursor: pointer;" onclick="close_dialog('aaa')">x</a>
+                    <a style="position: absolute;top: 10px;right: 10px;font-size: 10pt;cursor: pointer;"
+                        onclick="close_dialog('aaa')">x</a>
                 </div>
                 <div class="dialog-main">
                     <h2>setting</h2>
@@ -44,44 +47,67 @@
                         <table style="width: 100%;">
                             <tbody>
                                 <tr>
-                                    <td class="setting-1"><span style="font-size: 11pt;">Name</span></td><td class="setting-2"><input id="name" value="no name" onchange="update_setting()"></td>
+                                    <td class="setting-1"><span style="font-size: 11pt;">Name</span></td>
+                                    <td class="setting-2"><input id="name" value="no name" onchange="update_setting()">
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td class="setting-1"><span style="font-size: 11pt;">sound</td><td class="setting-2"><input type="checkbox" onchange="update_setting()" id="sound" class="switch"><label for="sound" class="switch-main"></label></span></td><br>
+                                    <td class="setting-1"><span style="font-size: 11pt;">sound</td>
+                                    <td class="setting-2"><input type="checkbox" onchange="update_setting()" id="sound"
+                                            class="switch"><label for="sound" class="switch-main"></label></span></td>
+                                    <br>
                                 </tr>
                                 <tr>
-                                    <td class="setting-1"><span style="font-size: 11pt;">timer hidden</td><td class="setting-2"><input type="checkbox" onchange="update_setting()" id="hidden_timer" class="switch"><label for="hidden_timer" class="switch-main"></label></td></span>
+                                    <td class="setting-1"><span style="font-size: 11pt;">timer hidden</td>
+                                    <td class="setting-2"><input type="checkbox" onchange="update_setting()"
+                                            id="hidden_timer" class="switch"><label for="hidden_timer"
+                                            class="switch-main"></label></td></span>
                                 </tr>
                                 <tr>
-                                    <td class="setting-1"><span style="font-size: 11pt;">speed start</td><td class="setting-2"><input type="checkbox" onchange="update_setting()" id="speed-start" class="switch"><label for="speed-start" class="switch-main"></label></span></td><br>
+                                    <td class="setting-1"><span style="font-size: 11pt;">speed start</td>
+                                    <td class="setting-2"><input type="checkbox" onchange="update_setting()"
+                                            id="speed-start" class="switch"><label for="speed-start"
+                                            class="switch-main"></label></span></td><br>
+                                </tr>
+                                <tr id="str117">
+                                    <td class="setting-1"><span style="font-size: 11pt;">input split</td>
+                                    <td class="setting-2"><input type="checkbox" onchange="update_setting()"
+                                            id="input-split" class="switch"><label for="input-split"
+                                            class="switch-main"></label></span></td><br>
                                 </tr>
                                 <tr>
-                                    <td class="setting-1"><span style="font-size: 11pt;">const</span></td><td class="setting-2"><select id="const" onchange="update_setting();load_file(this.value)">
-                                        <option value="pi" selected>π</option>
-                                        <option value="gold">φ</option>
-                                    </select></td>
+                                    <td class="setting-1"><span style="font-size: 11pt;">const</span></td>
+                                    <td class="setting-2"><select id="const"
+                                            onchange="update_setting();load_file(this.value)">
+                                            <option value="pi" selected>π</option>
+                                            <option value="gold">φ</option>
+                                        </select></td>
                                 </tr>
                                 <tr>
-                                    <td class="setting-1"><span style="font-size: 11pt;">tenkey arrangement</span></td><td class="setting-2"><select id="key_style" onchange="update_setting();update_tenkey()">
-                                        <option value="1" selected>calculator style</option>
-                                        <option value="2">telephone style</option>
-                                    </select></td>
+                                    <td class="setting-1"><span style="font-size: 11pt;">tenkey arrangement</span></td>
+                                    <td class="setting-2"><select id="key_style"
+                                            onchange="update_setting();update_tenkey()">
+                                            <option value="1" selected>calculator style</option>
+                                            <option value="2">telephone style</option>
+                                        </select></td>
                                 </tr>
                                 <tr>
-                                    <td class="setting-1"><span style="font-size: 11pt;">category</span></td><td class="setting-2"><select id="content" onchange="update_setting()">
-                                        <option value="count">Speedpi Type</option>
-                                        <option value="endress">Speedpi Super</option>
-                                        <option value="1minute">Speedpi 1minute</option>
-                                        <option value="random">Speedpi Random</option>
-                                    </select></td>
+                                    <td class="setting-1"><span style="font-size: 11pt;">category</span></td>
+                                    <td class="setting-2"><select id="content" onchange="update_setting()">
+                                            <option value="count">Speedpi Type</option>
+                                            <option value="endress">Speedpi Super</option>
+                                            <option value="1minute">Speedpi 1minute</option>
+                                            <option value="random">Speedpi Random</option>
+                                        </select></td>
                                 </tr>
                                 <tr id="count-s">
-                                    <td class="setting-1"><span style="font-size: 11pt;">category details settings</span></td><td class="setting-2"><select id="count-setting" onchange="update_setting()">
-                                        <option value="10">10</option>
-                                        <option value="100">100</option>
-                                        <option value="1000">1000</option>
-                                        <option value="10000">10000</option>
-                                    </select></td>
+                                    <td class="setting-1"><span style="font-size: 11pt;">category detailssettings</span></td>
+                                    <td class="setting-2"><select id="count-setting" onchange="update_setting()">
+                                            <option value="10">10</option>
+                                            <option value="100">100</option>
+                                            <option value="1000">1000</option>
+                                            <option value="10000">10000</option>
+                                        </select></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -92,7 +118,9 @@
         </div>
         <h1 id="timer">00:00.000</h1>
         <a id="pi"></a><br>
-        <div id="pi2" style="color: white;width: 250px;margin-left: auto;margin-right: auto;text-align: left;font-size: x-large;"></div>
+        <div id="pi2"
+            style="color: white;margin-left: auto;margin-right: auto;text-align: left;font-size: x-large;text-align: center;">
+        </div>
         <a id="status"></a><br>
         <h3 id="score"></h3>
         <span id="datassss"></span>
@@ -101,18 +129,21 @@
                 <a class="button key">7</a><a class="button key">8</a><a class="button key">9</a><br>
                 <a class="button key">4</a><a class="button key">5</a><a class="button key">6</a><br>
                 <a class="button key">1</a><a class="button key">2</a><a class="button key">3</a><br>
-                <a class="button key">0</a>
+                <a class="button key">←</a><a class="button key">0</a><a class="button key">&crarr;</a>
             </div>
             <div id="keyboard-2">
                 <a class="button key">1</a><a class="button key">2</a><a class="button key">3</a><br>
                 <a class="button key">4</a><a class="button key">5</a><a class="button key">6</a><br>
                 <a class="button key">7</a><a class="button key">8</a><a class="button key">9</a><br>
-                <a class="button key">0</a>
+                <a class="button key">←</a><a class="button key">0</a><a class="button key">&crarr;</a>
             </div><br>
-            <a id="press9" class="Highlight" style="font-size: 12pt;" onclick="onkey('Enter')">press enter or click to restart</a><br>
+            <a id="press9" class="Highlight" style="font-size: 12pt;" onclick="onkey('Enter')">press enter or click to
+                restart</a><br>
             <a class="button" onclick="open_dialog('aaa')" id="setting_button">setting</a><br><br>
-            <a style="text-decoration:none;" rel="noopener" target="_blank" href="./ranking.html" id="ranking_link" class="button">ranking</a>
+            <a style="text-decoration:none;" rel="noopener" target="_blank" href="./ranking.html" id="ranking_link"
+                class="button">ranking</a>
         </div>
     </div>
 </body>
+
 </html>

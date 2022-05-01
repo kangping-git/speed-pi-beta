@@ -146,6 +146,9 @@ html,body{
     left: 25px;
     border-radius: 11px;
 }
+.switch:disabled + label::after{
+    background-color: #b9b9b9;
+}
 table{
     border-spacing: 0;
 }

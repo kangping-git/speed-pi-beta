@@ -1,4 +1,12 @@
 let dialog_opened = false;
+function standard_deviation(n){
+    mean = n.reduce((previousValue, currentValue) => {
+        return currentValue + previousValue
+    }) / n.length
+    return Math.sqrt(n.reduce((previousValue,currentValue) => {
+        return previousValue + (currentValue - mean) ** 2
+    }) * (1 / n.length))
+}
 window.open_dialog = (dialog_name) => {
     if (dialog_opened){
         throw new Error("dialog is opened")
@@ -52,6 +60,12 @@ var on_up = false
 var keys = [0,1,2,3,4,5,6,7,8,9]
 var aaaaaa = ["&ensp;","&ensp;","&ensp;","&ensp;","&ensp;","&ensp;","&ensp;","&ensp;","&ensp;","&ensp;","&ensp;","&ensp;","&ensp;","3","."]
 function onkey(key_name){
+    if (key_name == "↵"){
+        key_name = "Enter"
+    }
+    if (key_name == "←"){
+        key_name = "Backspace"
+    }
     if (keys.includes(Number(key_name))){
         if (document.getElementById("sound").checked == true && start == true){
             play_kata()
@@ -71,23 +85,20 @@ function onkey(key_name){
         }
     }
     if (start == true){
-        if (keys.includes(Number(key_name))){
-            if (key_name == pi_data.main[score]){
-                if (document.getElementById("content").value == "random"){
-                    score = Math.floor(Math.random() * document.getElementById("count-setting").value)
-                    document.getElementById("pi2").innerHTML += "  " + key_name + " <a style=''>correct!</a>"
-                    score2 += 1
+        if (document.getElementById("input-split").checked){
+            if (key_name == "Backspace"){
+                if (document.getElementById("pi2").innerText.length > 0){
+                    document.getElementById("pi2").innerText = document.getElementById("pi2").innerText.slice(0,document.getElementById("pi2").innerText.length-1)
+                    score -= 1
+                }
+                document.getElementById("score").innerText = "No." + (score + 1)
+                play_kata()
+            }else if (key_name == "Enter"){
+                if (document.getElementById("pi2").innerText == pi_data.main.slice(score-document.getElementById("pi2").innerText.length,score).join("")){
+                    document.getElementById("pi2").innerText = ""
                 }else{
-                    document.getElementById("score").innerText = "No." + (score + 2)
-                    aaaaaa.push(key_name)
-                    aaaaaa.shift()
-                    score += 1
-                }
-            }else{
-                if (document.getElementById("sound").checked == true){
                     play_No()
-                }
-                if (document.getElementById("content").value == "count"){
+                    score -= document.getElementById("pi2").innerText.length-2
                     document.getElementById("score").innerText = ""
                     window.time = new Date() - start_time
                     start = "nulla"
@@ -108,111 +119,158 @@ function onkey(key_name){
                         document.getElementById("datassss").innerHTML += "<br>score:" + score
                         start = null
                     },2000)
-                }else if (document.getElementById("content").value == "endress"){
-                    document.getElementById("score").innerText = ""
-                    window.time = new Date() - start_time
-                    start = "nulla"
-                    var s = new Date()
-                    fetch("https://worldtimeapi.org/api/timezone/Asia/Tokyo")
-                    .then(t => t.json())
-                    .then(t => {finish_time = new Date(new Date(t.utc_datetime) - (new Date() - s)).toUTCString()})
-                    document.getElementById("timer").innerText = ("00" + Math.floor((time) / (60*1000))).slice(-2) + ":" + ("00" + Math.floor((time) / 1000) % 60).slice(-2) + "." + ("000" + Math.floor((time) / 1) % 1000).slice(-3)
-                    setTimeout(() => {
-                        document.getElementById("datassss").innerHTML = "failed!"
-                    })
-                    setTimeout(() => {
-                        document.getElementById("datassss").innerHTML += "<br>time:" + time / 1000 + "s"
-                    },500)
-                    setTimeout(() => {
-                        document.getElementById("datassss").innerHTML += "<br>score:" + score
-                    },1000)
-                    setTimeout(() => {
-                        document.getElementById("datassss").innerHTML += "<br>TPS:" + (score / (time / 1000)).toFixed(2)
-                    },1500)
-                    setTimeout(() => {
-                        document.getElementById("datassss").innerHTML += "<br><a class='button' onclick='submit_data()'>record</a>"
-                        start = null
-                    },2000)
-                }else if (document.getElementById("content").value == "random"){
-                    document.getElementById("pi2").innerHTML += "  " + key_name + " <a style='color: red;'>" + pi_data.main[score] + "</a>"
-                    score = Math.floor(Math.random() * document.getElementById("count-setting").value)
+                }
+                document.getElementById("score").innerText = "No." + (score + 1)
+            }
+        }
+        if (keys.includes(Number(key_name))){
+            if (document.getElementById("input-split").checked){
+                document.getElementById("pi2").innerText += key_name
+                score += 1
+                document.getElementById("score").innerText = "No." + (score + 1)
+            }else{
+                if (key_name == pi_data.main[score]){
+                    if (document.getElementById("content").value == "random"){
+                        score = Math.floor(Math.random() * document.getElementById("count-setting").value)
+                        document.getElementById("pi2").innerHTML += "  " + key_name + " <a style=''>correct!</a>"
+                        score2 += 1
+                    }else{
+                        document.getElementById("score").innerText = "No." + (score + 2)
+                        aaaaaa.push(key_name)
+                        aaaaaa.shift()
+                        score += 1
+                    }
                 }else{
-                    document.getElementById("score").innerText = ""
-                    window.time = - new Date() + (start_time.getTime() + 60*1000)
-                    start = "nulla"
-                    var s = new Date()
-                    fetch("https://worldtimeapi.org/api/timezone/Asia/Tokyo")
-                    .then(t => t.json())
-                    .then(t => {finish_time = new Date(new Date(t.utc_datetime) - (new Date() - s)).toUTCString()})
-                    document.getElementById("timer").innerText = ("00" + Math.floor(time / (60*1000))).slice(-2) + ":" + ("00" + Math.floor(time / 1000) % 60).slice(-2) + "." + ("000" + Math.floor(time / 1) % 1000).slice(-3)
-                    setTimeout(() => {
-                        document.getElementById("datassss").innerHTML = "failed!"
-                    })
-                    setTimeout(() => {
-                        document.getElementById("datassss").innerHTML += "<br>score:" + score
-                        start = null
-                    },500)
+                    if (document.getElementById("sound").checked == true){
+                        play_No()
+                    }
+                    if (document.getElementById("content").value == "count"){
+                        document.getElementById("score").innerText = ""
+                        window.time = new Date() - start_time
+                        start = "nulla"
+                        document.getElementById("timer").innerText = ("00" + Math.floor((time) / (60*1000))).slice(-2) + ":" + ("00" + Math.floor((time) / 1000) % 60).slice(-2) + "." + ("000" + Math.floor((time) / 1) % 1000).slice(-3)
+                        setTimeout(() => {
+                            document.getElementById("datassss").innerHTML = "failed!"
+                        })
+                        setTimeout(() => {
+                            document.getElementById("datassss").innerHTML += "<br>time:" + time / 1000 + "s"
+                        },500)
+                        setTimeout(() => {
+                            document.getElementById("datassss").innerHTML += "<br>category:Speedpi Counts" + document.getElementById("count-setting").value
+                        },1000)
+                        setTimeout(() => {
+                            document.getElementById("datassss").innerHTML += "<br>TPS:" + (score / (time / 1000)).toFixed(2)
+                        },1500)
+                        setTimeout(() => {
+                            document.getElementById("datassss").innerHTML += "<br>score:" + score
+                            start = null
+                        },2000)
+                    }else if (document.getElementById("content").value == "endress"){
+                        document.getElementById("score").innerText = ""
+                        window.time = new Date() - start_time
+                        start = "nulla"
+                        var s = new Date()
+                        fetch("https://worldtimeapi.org/api/timezone/Asia/Tokyo")
+                        .then(t => t.json())
+                        .then(t => {finish_time = new Date(new Date(t.utc_datetime) - (new Date() - s)).toUTCString()})
+                        document.getElementById("timer").innerText = ("00" + Math.floor((time) / (60*1000))).slice(-2) + ":" + ("00" + Math.floor((time) / 1000) % 60).slice(-2) + "." + ("000" + Math.floor((time) / 1) % 1000).slice(-3)
+                        setTimeout(() => {
+                            document.getElementById("datassss").innerHTML = "failed!"
+                        })
+                        setTimeout(() => {
+                            document.getElementById("datassss").innerHTML += "<br>time:" + time / 1000 + "s"
+                        },500)
+                        setTimeout(() => {
+                            document.getElementById("datassss").innerHTML += "<br>score:" + score
+                        },1000)
+                        setTimeout(() => {
+                            document.getElementById("datassss").innerHTML += "<br>TPS:" + (score / (time / 1000)).toFixed(2)
+                        },1500)
+                        setTimeout(() => {
+                            document.getElementById("datassss").innerHTML += "<br><a class='button' onclick='submit_data()'>record</a>"
+                            start = null
+                        },2000)
+                    }else if (document.getElementById("content").value == "random"){
+                        document.getElementById("pi2").innerHTML += "  " + key_name + " <a style='color: red;'>" + pi_data.main[score] + "</a>"
+                        score = Math.floor(Math.random() * document.getElementById("count-setting").value)
+                    }else{
+                        document.getElementById("score").innerText = ""
+                        window.time = - new Date() + (start_time.getTime() + 60*1000)
+                        start = "nulla"
+                        var s = new Date()
+                        fetch("https://worldtimeapi.org/api/timezone/Asia/Tokyo")
+                        .then(t => t.json())
+                        .then(t => {finish_time = new Date(new Date(t.utc_datetime) - (new Date() - s)).toUTCString()})
+                        document.getElementById("timer").innerText = ("00" + Math.floor(time / (60*1000))).slice(-2) + ":" + ("00" + Math.floor(time / 1000) % 60).slice(-2) + "." + ("000" + Math.floor(time / 1) % 1000).slice(-3)
+                        setTimeout(() => {
+                            document.getElementById("datassss").innerHTML = "failed!"
+                        })
+                        setTimeout(() => {
+                            document.getElementById("datassss").innerHTML += "<br>score:" + score
+                            start = null
+                        },500)
+                    }
                 }
-            }
-            if (document.getElementById("content").value == "random" && document.getElementById("pi2").innerText.split("\n").length < 5){
-                document.getElementById("pi2").innerHTML += "<br>No." + (("____" + (score + 1)).slice(-4)).replace(/_/g,"&nbsp;")
-            }else if (document.getElementById("content").value == "random"){
-                start = null
-            }
-            if (document.getElementById("content").value == "count"){
-                if (document.getElementById("count-setting").value == score){
-                    play_Yes()
-                    document.getElementById("score").innerText = ""
-                    window.time = new Date() - start_time
-                    start = "nulla"
-                    var s = new Date()
-                    fetch("https://worldtimeapi.org/api/timezone/Asia/Tokyo")
-                    .then(t => t.json())
-                    .then(t => {finish_time = new Date(new Date(t.utc_datetime) - (new Date() - s)).toUTCString()})
-                    document.getElementById("timer").innerText = ("00" + Math.floor((time) / (60*1000))).slice(-2) + ":" + ("00" + Math.floor((time) / 1000) % 60).slice(-2) + "." + ("000" + Math.floor((time) / 1) % 1000).slice(-3)
-                    setTimeout(() => {
-                        document.getElementById("datassss").innerHTML = "complete!"
-                    })
-                    setTimeout(() => {
-                        document.getElementById("datassss").innerHTML += "<br>time:" + time / 1000 + "s"
-                    },500)
-                    setTimeout(() => {
-                        document.getElementById("datassss").innerHTML += "<br>category:Speedpi Counts" + score
-                    },1000)
-                    setTimeout(() => {
-                        document.getElementById("datassss").innerHTML += "<br>TPS:" + (score / (time / 1000)).toFixed(2)
-                    },1500)
-                    setTimeout(() => {
-                        document.getElementById("datassss").innerHTML += "<br><a class='button' onclick='submit_data()'>record</a>"
-                        start = null
-                    },2000)
+                if (document.getElementById("content").value == "random" && document.getElementById("pi2").innerText.split("\n").length < 5){
+                    document.getElementById("pi2").innerHTML += "<br>No." + (("____" + (score + 1)).slice(-4)).replace(/_/g,"&nbsp;")
+                }else if (document.getElementById("content").value == "random"){
+                    start = null
                 }
-            }else if (document.getElementById("content").value == "endress"){
-                if (10000 == score){
-                    document.getElementById("score").innerText = ""
-                    window.time = new Date() - start_time
-                    start = "nulla"
-                    var s = new Date()
-                    fetch("https://worldtimeapi.org/api/timezone/Asia/Tokyo")
-                    .then(t => t.json())
-                    .then(t => {finish_time = new Date(new Date(t.utc_datetime) - (new Date() - s)).toUTCString()})
-                    document.getElementById("timer").innerText = ("00" + Math.floor((time) / (60*1000))).slice(-2) + ":" + ("00" + Math.floor((time) / 1000) % 60).slice(-2) + "." + ("000" + Math.floor((time) / 1) % 1000).slice(-3)
-                    setTimeout(() => {
-                        document.getElementById("datassss").innerHTML = "complete!"
-                    })
-                    setTimeout(() => {
-                        document.getElementById("datassss").innerHTML += "<br>time:" + time / 1000 + "s"
-                    },500)
-                    setTimeout(() => {
-                        document.getElementById("datassss").innerHTML += "<br>score:" + score
-                    },1000)
-                    setTimeout(() => {
-                        document.getElementById("datassss").innerHTML += "<br>TPS:" + (score / (time / 1000)).toFixed(2)
-                    },1500)
-                    setTimeout(() => {
-                        document.getElementById("datassss").innerHTML += "<br><a class='button' onclick='submit_data()'>record</a>"
-                        start = null
-                    },2000)
+                if (document.getElementById("content").value == "count"){
+                    if (document.getElementById("count-setting").value == score){
+                        play_Yes()
+                        document.getElementById("score").innerText = ""
+                        window.time = new Date() - start_time
+                        start = "nulla"
+                        var s = new Date()
+                        fetch("https://worldtimeapi.org/api/timezone/Asia/Tokyo")
+                        .then(t => t.json())
+                        .then(t => {finish_time = new Date(new Date(t.utc_datetime) - (new Date() - s)).toUTCString()})
+                        document.getElementById("timer").innerText = ("00" + Math.floor((time) / (60*1000))).slice(-2) + ":" + ("00" + Math.floor((time) / 1000) % 60).slice(-2) + "." + ("000" + Math.floor((time) / 1) % 1000).slice(-3)
+                        setTimeout(() => {
+                            document.getElementById("datassss").innerHTML = "complete!"
+                        })
+                        setTimeout(() => {
+                            document.getElementById("datassss").innerHTML += "<br>time:" + time / 1000 + "s"
+                        },500)
+                        setTimeout(() => {
+                            document.getElementById("datassss").innerHTML += "<br>category:Speedpi Counts" + score
+                        },1000)
+                        setTimeout(() => {
+                            document.getElementById("datassss").innerHTML += "<br>TPS:" + (score / (time / 1000)).toFixed(2)
+                        },1500)
+                        setTimeout(() => {
+                            document.getElementById("datassss").innerHTML += "<br><a class='button' onclick='submit_data()'>record</a>"
+                            start = null
+                        },2000)
+                    }
+                }else if (document.getElementById("content").value == "endress"){
+                    if (10000 == score){
+                        document.getElementById("score").innerText = ""
+                        window.time = new Date() - start_time
+                        start = "nulla"
+                        var s = new Date()
+                        fetch("https://worldtimeapi.org/api/timezone/Asia/Tokyo")
+                        .then(t => t.json())
+                        .then(t => {finish_time = new Date(new Date(t.utc_datetime) - (new Date() - s)).toUTCString()})
+                        document.getElementById("timer").innerText = ("00" + Math.floor((time) / (60*1000))).slice(-2) + ":" + ("00" + Math.floor((time) / 1000) % 60).slice(-2) + "." + ("000" + Math.floor((time) / 1) % 1000).slice(-3)
+                        setTimeout(() => {
+                            document.getElementById("datassss").innerHTML = "complete!"
+                        })
+                        setTimeout(() => {
+                            document.getElementById("datassss").innerHTML += "<br>time:" + time / 1000 + "s"
+                        },500)
+                        setTimeout(() => {
+                            document.getElementById("datassss").innerHTML += "<br>score:" + score
+                        },1000)
+                        setTimeout(() => {
+                            document.getElementById("datassss").innerHTML += "<br>TPS:" + (score / (time / 1000)).toFixed(2)
+                        },1500)
+                        setTimeout(() => {
+                            document.getElementById("datassss").innerHTML += "<br><a class='button' onclick='submit_data()'>record</a>"
+                            start = null
+                        },2000)
+                    }
                 }
             }
         }
@@ -232,6 +290,7 @@ function onkey(key_name){
             document.getElementById("score").innerText = ""
         }
     }else if (start == false && key_name != "Enter"){
+        document.getElementById("pi2").innerText = ""
         if (document.getElementById("content").value == "random"){
             score = Math.floor(Math.random() * document.getElementById("count-setting").value)
             start_time = new Date()
@@ -250,6 +309,9 @@ function onkey(key_name){
         }
     }
     document.getElementById("pi").innerHTML = aaaaaa.join("")
+    if (document.getElementById("input-split").checked){
+        document.getElementById("pi").innerHTML = ""
+    }
 }
 var aaa = document.getElementsByClassName("button key")
 for (var i = 0;i<aaa.length;++i){
@@ -357,6 +419,7 @@ if (localStorage.getItem("sound") != undefined){
     document.getElementById("content").value = localStorage.getItem("content")
     document.getElementById("count-setting").value = localStorage.getItem("count-setting")
     document.getElementById("name").value = localStorage.getItem("name")
+    document.getElementById("input-split").checked = localStorage.getItem("input-split")
     if (localStorage.getItem("const") != undefined){
         document.getElementById("const").value = localStorage.getItem("const")
         load_file(localStorage.getItem("const"))
@@ -377,6 +440,10 @@ function timer(){
         document.getElementById("count-s").style.display = ""
     }else{
         document.getElementById("count-s").style.display = "none"
+    }
+    if (document.getElementById("input-split").checked){
+        document.getElementById("pi").style.display = "none"
+        document.getElementById("pi2").style.display = ""
     }
     if (document.getElementById("content").value == "random"){
         document.getElementById("pi").style.background = "rgba(0,0,0,0)"
@@ -402,6 +469,12 @@ function timer(){
     }else{
         document.getElementById("load").style.display = "none"
         document.getElementById("main").style.display = ""
+        if (document.getElementById("content").value == "count"){
+            document.getElementById("input-split").disabled = ""
+        }else{
+            document.getElementById("input-split").disabled = "true"
+            document.getElementById("input-split").checked = ""
+        }
         if (start == true){
             if (document.getElementById("content").value == "1minute"){
                 if ((start_time.getTime() + 60*1000) - new Date() >= 0){
@@ -475,6 +548,7 @@ function update_setting(){
     localStorage.setItem("count-setting",document.getElementById("count-setting").value)
     localStorage.setItem("name",document.getElementById("name").value)
     localStorage.setItem("const",document.getElementById("const").value)
+    localStorage.setItem("input-split",document.getElementById("input-split").checked)
     if (document.getElementById("content").value == "count"){
         document.getElementById("ranking_link").href = "./ranking.html?category=" + (Math.floor(Math.log10(document.getElementById("count-setting").value)))
     }else if (document.getElementById("content").value == "endress"){
