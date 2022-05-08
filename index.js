@@ -217,7 +217,7 @@ function onkey(key_name){
                     start = null
                 }
                 if (document.getElementById("content").value == "count"){
-                    if (document.getElementById("count-setting").value == score){
+                    if (document.getElementById("count-setting").value >= score){
                         play_Yes()
                         document.getElementById("score").innerText = ""
                         window.time = new Date() - start_time
@@ -310,7 +310,7 @@ function onkey(key_name){
     }
     document.getElementById("pi").innerHTML = aaaaaa.join("")
     if (document.getElementById("input-split").checked){
-        document.getElementById("pi").innerHTML = ""
+        document.getElementById("pi2").innerHTML = ""
     }
 }
 var aaa = document.getElementsByClassName("button key")
