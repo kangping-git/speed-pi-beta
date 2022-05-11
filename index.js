@@ -72,6 +72,7 @@ function onkey(key_name){
         }
     }
     if (start == false && document.getElementById("speed-start").checked == true){
+        document.getElementById("pi2").innerText = ""
         if (dialog_opened != true){
             if (document.getElementById("content").value == "random"){
             }else{
@@ -217,7 +218,7 @@ function onkey(key_name){
                     start = null
                 }
                 if (document.getElementById("content").value == "count"){
-                    if (document.getElementById("count-setting").value >= score){
+                    if (document.getElementById("count-setting").value == score){
                         play_Yes()
                         document.getElementById("score").innerText = ""
                         window.time = new Date() - start_time
@@ -310,7 +311,7 @@ function onkey(key_name){
     }
     document.getElementById("pi").innerHTML = aaaaaa.join("")
     if (document.getElementById("input-split").checked){
-        document.getElementById("pi2").innerHTML = ""
+        document.getElementById("pi").innerHTML = ""
     }
 }
 var aaa = document.getElementsByClassName("button key")
