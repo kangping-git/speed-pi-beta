@@ -212,13 +212,14 @@ function onkey(key_name){
                         },500)
                     }
                 }
+            }
                 if (document.getElementById("content").value == "random" && document.getElementById("pi2").innerText.split("\n").length < 5){
                     document.getElementById("pi2").innerHTML += "<br>No." + (("____" + (score + 1)).slice(-4)).replace(/_/g,"&nbsp;")
                 }else if (document.getElementById("content").value == "random"){
                     start = null
                 }
                 if (document.getElementById("content").value == "count"){
-                    if (document.getElementById("count-setting").value == score){
+                    if (Number(document.getElementById("count-setting").value) <= score){
                         play_Yes()
                         document.getElementById("score").innerText = ""
                         window.time = new Date() - start_time
@@ -273,7 +274,6 @@ function onkey(key_name){
                         },2000)
                     }
                 }
-            }
         }
     }else if (start == null && key_name == "Enter"){
         if (document.getElementById("content").value == "random"){
