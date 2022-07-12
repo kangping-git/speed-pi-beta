@@ -63,9 +63,9 @@
         <select id="sort" class="ranking" onchange="update_table()">
             <option value="0">defalt</option>
             <option value="1">TPS</option>
-        </select></td></tr><tr>
+        </select></td></tr><tr style="display: none;">
         <td class="setting-1">filter</td>
-        <td class="setting-2">
+        <td class="setting-2"></td>
         <select id="filter" class="ranking" onchange="update_table()">
             <option value="">all</option>
             <option value="pi">π</option>
@@ -123,7 +123,7 @@
             type = document.getElementById("type").value
             if (Number(type) > 0 && Number(type) < 5){
                 document.getElementById("thead").innerHTML = `<tr class='ranking'>
-                <th class="ranking">Rank</th><th class="ranking">Name</th><th class="ranking">TPS[type/s]</th><th class="ranking">Time</th><th class="ranking">Date</th><th class='ranking'>const</th>
+                <th class="ranking">Rank</th><th class="ranking">Name</th><th class="ranking">TPS[type/s]</th><th class="ranking">Time</th><th class="ranking">Date</th>
             </tr>`
                 html = ""
                 datas[type].sort((a,b) => {
@@ -137,7 +137,7 @@
                 datas[type].forEach((value,index) => {
                     if (document.getElementById("filter").value == "" || document.getElementById("filter").value == value.type){
                         if ((new Date() - new Date(value.date)) / (1000*60*60*24) <= Number(document.getElementById("time").value)){
-                            html += "<tr class='ranking'><td class='ranking'>No." + a + "</td><td class='ranking'>" + value.name + "</td><td class='ranking'>" + (aaaaaaa[type] / (value.time/1000)).toFixed(2) + "</td><td class='ranking'>" + (value.time/1000).toFixed(3) + "s</td><td class='ranking'>" + new Date(value.date).toLocaleString() + "</td><td class='ranking'>" + (value.type == "pi" ? "π" : "φ") + "</td></tr>"
+                            html += "<tr class='ranking'><td class='ranking'>No." + a + "</td><td class='ranking'>" + value.name + "</td><td class='ranking'>" + (aaaaaaa[type] / (value.time/1000)).toFixed(2) + "</td><td class='ranking'>" + (value.time/1000).toFixed(3) + "s</td><td class='ranking'>" + new Date(value.date).toLocaleString() + "</td></tr>"
                             a += 1
                         }
                     }
@@ -145,7 +145,7 @@
                 document.getElementById("tbody").innerHTML = html
             }else if (type == 0){
                 document.getElementById("thead").innerHTML = `<tr class='ranking'>
-                <th class="ranking">Rank</th><th class="ranking">Name</th><th class="ranking">Score</th><th class="ranking">TPS[type/s]</th><th class="ranking">Time</th><th class="ranking">Date</th><th class='ranking'>const</th>
+                <th class="ranking">Rank</th><th class="ranking">Name</th><th class="ranking">Score</th><th class="ranking">TPS[type/s]</th><th class="ranking">Time</th><th class="ranking">Date</th>
             </tr>`
                 html = ""
                 datas[type].sort((a,b) => {
@@ -163,7 +163,7 @@
                 datas[type].forEach((value,index) => {
                     if (document.getElementById("filter").value == "" || document.getElementById("filter").value == value.type){
                         if ((new Date() - new Date(value.date)) / (1000*60*60*24) <= Number(document.getElementById("time").value)){
-                            html += "<tr class='ranking'><td class='ranking'>No." + a + "</td><td class='ranking'>" + value.name + "</td><td class='ranking'>" + value.score + "</td><td class='ranking'>" + (value.score / (value.time/1000)).toFixed(2) + "</td><td class='ranking'>" + (value.time/1000).toFixed(3) + "s</td><td class='ranking'>" + new Date(value.date).toLocaleString() + "</td><td class='ranking'>" + (value.type == "pi" ? "π" : "φ") + "</td></tr>"
+                            html += "<tr class='ranking'><td class='ranking'>No." + a + "</td><td class='ranking'>" + value.name + "</td><td class='ranking'>" + value.score + "</td><td class='ranking'>" + (value.score / (value.time/1000)).toFixed(2) + "</td><td class='ranking'>" + (value.time/1000).toFixed(3) + "s</td><td class='ranking'>" + new Date(value.date).toLocaleString() + "</td></tr>"
                             a += 1
                         }
                     }
@@ -171,7 +171,7 @@
                 document.getElementById("tbody").innerHTML = html
             }else if (Number(type) > 5 && Number(type) < 10){
                 document.getElementById("thead").innerHTML = `<tr class='ranking'>
-                <th class="ranking">Rank</th><th class="ranking">Name</th><th class="ranking">TPS[type/s]</th><th class="ranking">Time</th><th class="ranking">Date</th><th class='ranking'>const</th>
+                <th class="ranking">Rank</th><th class="ranking">Name</th><th class="ranking">TPS[type/s]</th><th class="ranking">Time</th><th class="ranking">Date</th>
             </tr>`
                 html = ""
                 datas[type].sort((a,b) => {
@@ -185,7 +185,7 @@
                 datas[type].forEach((value,index) => {
                     if (document.getElementById("filter").value == "" || document.getElementById("filter").value == value.type){
                         if ((new Date() - new Date(value.date)) / (1000*60*60*24) <= Number(document.getElementById("time").value)){
-                            html += "<tr class='ranking'><td class='ranking'>No." + a + "</td><td class='ranking'>" + value.name + "</td><td class='ranking'>" + (aaaaaaa[type] / (value.time/1000)).toFixed(2) + "</td><td class='ranking'>" + (value.time/1000).toFixed(3) + "s</td><td class='ranking'>" + new Date(value.date).toLocaleString() + "</td><td class='ranking'>" + (value.type == "pi" ? "π" : "φ") + "</td></tr>"
+                            html += "<tr class='ranking'><td class='ranking'>No." + a + "</td><td class='ranking'>" + value.name + "</td><td class='ranking'>" + (aaaaaaa[type] / (value.time/1000)).toFixed(2) + "</td><td class='ranking'>" + (value.time/1000).toFixed(3) + "s</td><td class='ranking'>" + new Date(value.date).toLocaleString() + "</td></tr>"
                             a += 1
                         }
                     }
@@ -211,7 +211,7 @@
                 datas[type].forEach((value,index) => {
                     if (document.getElementById("filter").value == "" || document.getElementById("filter").value == value.type){
                         if ((new Date() - new Date(value.date)) / (1000*60*60*24) <= Number(document.getElementById("time").value)){
-                            html += "<tr class='ranking'><td class='ranking'>No." + a + "</td><td class='ranking'>" + value.name + "</td><td class='ranking'>" + value.score + "</td><td class='ranking'>" + (value.score / 60).toFixed(2) + "</td><td class='ranking'>" + new Date(value.date).toLocaleString() + "</td><td class='ranking'>" + (value.type == "pi" ? "π" : "φ") + "</td></tr>"
+                            html += "<tr class='ranking'><td class='ranking'>No." + a + "</td><td class='ranking'>" + value.name + "</td><td class='ranking'>" + value.score + "</td><td class='ranking'>" + (value.score / 60).toFixed(2) + "</td><td class='ranking'>" + new Date(value.date).toLocaleString() + "</td></tr>"
                             a += 1
                         }
                     }

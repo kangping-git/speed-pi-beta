@@ -80,7 +80,7 @@ function onkey(key_name){
                 start_time = new Date()
                 start = true
                 score2 = 0
-                aaaaaa = [makeRepeated(["&ensp;"],15),pi_data.start].flat().slice(-15)
+                aaaaaa = [makeRepeated(["&ensp;"],15),"3."].flat().slice(-15)
                 document.getElementById("score").innerText = "No.1"
             }
         }
@@ -95,7 +95,7 @@ function onkey(key_name){
                 document.getElementById("score").innerText = "No." + (score + 1)
                 play_kata()
             }else if (key_name == "Enter"){
-                if (document.getElementById("pi2").innerText == pi_data.main.slice(score-document.getElementById("pi2").innerText.length,score).join("")){
+                if (document.getElementById("pi2").innerText == pi_data.slice(score-document.getElementById("pi2").innerText.length,score).join("")){
                     document.getElementById("pi2").innerText = ""
                 }else{
                     play_No()
@@ -130,7 +130,7 @@ function onkey(key_name){
                 score += 1
                 document.getElementById("score").innerText = "No." + (score + 1)
             }else{
-                if (key_name == pi_data.main[score]){
+                if (key_name == pi_data[score]){
                     if (document.getElementById("content").value == "random"){
                         score = Math.floor(Math.random() * document.getElementById("count-setting").value)
                         document.getElementById("pi2").innerHTML += "  " + key_name + " <a style=''>correct!</a>"
@@ -192,7 +192,7 @@ function onkey(key_name){
                             start = null
                         },2000)
                     }else if (document.getElementById("content").value == "random"){
-                        document.getElementById("pi2").innerHTML += "  " + key_name + " <a style='color: red;'>" + pi_data.main[score] + "</a>"
+                        document.getElementById("pi2").innerHTML += "  " + key_name + " <a style='color: red;'>" + pi_data[score] + "</a>"
                         score = Math.floor(Math.random() * document.getElementById("count-setting").value)
                     }else{
                         document.getElementById("score").innerText = ""
@@ -247,7 +247,7 @@ function onkey(key_name){
                         },2000)
                     }
                 }else if (document.getElementById("content").value == "endress"){
-                    if (10000 == score){
+                    if (10**15 == score){
                         document.getElementById("score").innerText = ""
                         window.time = new Date() - start_time
                         start = "nulla"
@@ -287,7 +287,7 @@ function onkey(key_name){
             document.getElementById("datassss").innerHTML = ""
             document.getElementById("score").innerText = "No.1"
             document.getElementById("timer").innerText = "00:00.000"
-            aaaaaa = [makeRepeated(["&ensp;"],15),pi_data.start].flat().slice(-15)
+            aaaaaa = [makeRepeated(["&ensp;"],15),"3."].flat().slice(-15)
             document.getElementById("score").innerText = ""
         }
     }else if (start == false && key_name != "Enter"){
@@ -305,7 +305,7 @@ function onkey(key_name){
             start_time = new Date()
             start = true
             score2 = 0
-            aaaaaa = [makeRepeated(["&ensp;"],15),pi_data.start].flat().slice(-15)
+            aaaaaa = [makeRepeated(["&ensp;"],15),"3."].flat().slice(-15)
             document.getElementById("score").innerText = "No.1"
         }
     }
@@ -325,16 +325,14 @@ const makeRepeated = (arr, repeats) =>
 var start = false
 var start_time = new Date()
 var load = true
-var pi_data = null
-function load_file(aaa){
-    load = true
-    fetch("./" + aaa + ".json")
+var pi_data = []
+let a = 0
+function load_file(){
+    fetch("https://api.pi.delivery/v1/pi?start=" + (a * 1000 + 1) + "&numberOfDigits=1000")
     .then(res => res.json())
     .then(data => {
         load = false
-        pi_data = data
-        aaaaaa = [makeRepeated(["&ensp;"],15),data.start].flat().slice(-15)
-        document.getElementById("pi").innerHTML = aaaaaa.join("")
+        pi_data.push(...data.content.split(""))
     })
 }
 const canvas = document.getElementById('loader');
@@ -417,18 +415,9 @@ if (localStorage.getItem("sound") != undefined){
     document.getElementById("speed-start").checked = localStorage.getItem("speed_start") == "true" ? true : false
     document.getElementById("hidden_timer").checked = localStorage.getItem("hidden_timer") == "true" ? true : false
     document.getElementById("key_style").value = localStorage.getItem("key_style")
-    document.getElementById("content").value = localStorage.getItem("content")
     document.getElementById("count-setting").value = localStorage.getItem("count-setting")
     document.getElementById("name").value = localStorage.getItem("name")
     document.getElementById("input-split").checked = localStorage.getItem("input-split")
-    if (localStorage.getItem("const") != undefined){
-        document.getElementById("const").value = localStorage.getItem("const")
-        load_file(localStorage.getItem("const"))
-    }else{
-        load_file("pi")
-    }
-}else{
-    load_file("pi")
 }
 function timer(){
     requestAnimationFrame(timer)
@@ -522,6 +511,10 @@ function timer(){
         }else{
             document.getElementById("press9").style.display = "none"
         }
+        if (score > (a - 2) * 1000){
+            ++a
+            load_file()
+        }
     }
 }
 function update_tenkey(){
@@ -559,3 +552,7 @@ function update_setting(){
     }
 }
 update_tenkey()
+for (i = 0;i < 10;++i){
+    load_file()
+    ++a
+}
