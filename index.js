@@ -97,6 +97,33 @@ function onkey(key_name){
             }else if (key_name == "Enter"){
                 if (document.getElementById("pi2").innerText == pi_data.slice(score-document.getElementById("pi2").innerText.length,score).join("")){
                     document.getElementById("pi2").innerText = ""
+                    if (Number(document.getElementById("count-setting").value) <= score){
+                        play_Yes()
+                        document.getElementById("score").innerText = ""
+                        window.time = new Date() - start_time
+                        start = "nulla"
+                        var s = new Date()
+                        fetch("https://worldtimeapi.org/api/timezone/Asia/Tokyo")
+                        .then(t => t.json())
+                        .then(t => {finish_time = new Date(new Date(t.utc_datetime) - (new Date() - s)).toUTCString()})
+                        document.getElementById("timer").innerText = ("00" + Math.floor((time) / (60*1000))).slice(-2) + ":" + ("00" + Math.floor((time) / 1000) % 60).slice(-2) + "." + ("000" + Math.floor((time) / 1) % 1000).slice(-3)
+                        setTimeout(() => {
+                            document.getElementById("datassss").innerHTML = "complete!"
+                        })
+                        setTimeout(() => {
+                            document.getElementById("datassss").innerHTML += "<br>time:" + time / 1000 + "s"
+                        },500)
+                        setTimeout(() => {
+                            document.getElementById("datassss").innerHTML += "<br>category:Speedpi Counts" + score
+                        },1000)
+                        setTimeout(() => {
+                            document.getElementById("datassss").innerHTML += "<br>TPS:" + (score / (time / 1000)).toFixed(2)
+                        },1500)
+                        setTimeout(() => {
+                            document.getElementById("datassss").innerHTML += "<br><a class='button' onclick='submit_data()'>record</a>"
+                            start = null
+                        },2000)
+                    }
                 }else{
                     play_No()
                     score -= document.getElementById("pi2").innerText.length-2
@@ -218,7 +245,7 @@ function onkey(key_name){
                 }else if (document.getElementById("content").value == "random"){
                     start = null
                 }
-                if (document.getElementById("content").value == "count"){
+                if (document.getElementById("content").value == "count" && !document.getElementById("input-split").checked){
                     if (Number(document.getElementById("count-setting").value) <= score){
                         play_Yes()
                         document.getElementById("score").innerText = ""
