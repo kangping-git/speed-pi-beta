@@ -148,7 +148,7 @@ function onkey(key_name){
                         start = null
                     },2000)
                 }
-                document.getElementById("score").innerText = "No." + (score + 1)
+                document.getElementById("score").innerText = "No." + (score-1)
             }
         }
         if (keys.includes(Number(key_name))){
@@ -355,12 +355,7 @@ var load = true
 var pi_data = []
 let a = 0
 function load_file(){
-    fetch("https://api.pi.delivery/v1/pi?start=" + (a * 1000 + 1) + "&numberOfDigits=1000")
-    .then(res => res.json())
-    .then(data => {
-        load = false
-        pi_data.push(...data.content.split(""))
-    })
+    return fetch("https://api.pi.delivery/v1/pi?start=" + (a * 1000 + 1) + "&numberOfDigits=1000")
 }
 const canvas = document.getElementById('loader');
 canvas.style.width = "200px"
@@ -578,8 +573,13 @@ function update_setting(){
         document.getElementById("ranking_link").href = "./ranking.html?category=5"
     }
 }
-update_tenkey()
-for (i = 0;i < 10;++i){
-    load_file()
-    ++a
-}
+update_tenkey();
+(async function(){
+    for (i = 0;i < 10;++i){
+        A = await load_file()
+        A = await A.json()
+        pi_data.push(...A.content.split(""))
+        ++a
+    }
+    load = false
+})()
