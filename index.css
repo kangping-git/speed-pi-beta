@@ -214,7 +214,7 @@ table {
     right: 50%;
     width: 100%;
     transform: translate(-50%, -50%);
-    top: 480px;
+    top: 600px;
 }
 
 #keyboard-1 {
@@ -314,7 +314,8 @@ select.ranking {
 }
 .button.Classic{
     color: white;
-    background-color: #131313;
+    background-color: aliceblue;
+    color: black;
 }
 .button.Classic.n0 {
     background-image: url("./img/0.png");
