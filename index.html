@@ -46,6 +46,13 @@
                     <div style="height: calc(90% - 50px);">
                         <table style="width: 100%;">
                             <tbody>
+                                <tr style="display: none;">
+                                    <td class="setting-1"><span style="font-size: 11pt;">design</span></td>
+                                    <td class="setting-2"><select id="design" onchange="update_setting()">
+                                            <option value="Default">Default</option>
+                                            <option value="Classic">Classic</option>
+                                        </select></td>
+                                </tr>
                                 <tr>
                                     <td class="setting-1"><span style="font-size: 11pt;">Name</span></td>
                                     <td class="setting-2"><input id="name" value="no name" onchange="update_setting()">
@@ -100,10 +107,12 @@
                                         </select></td>
                                 </tr>
                                 <tr id="count-s">
-                                    <td class="setting-1"><span style="font-size: 11pt;">category detailssettings</span></td>
+                                    <td class="setting-1"><span style="font-size: 11pt;">category detailssettings</span>
+                                    </td>
                                     <td class="setting-2"><select id="count-setting" onchange="update_setting()">
                                             <option value="10">10</option>
                                             <option value="100">100</option>
+                                            <option value="500">500</option>
                                             <option value="1000">1000</option>
                                             <option value="10000">10000</option>
                                         </select></td>
@@ -125,16 +134,16 @@
         <span id="datassss"></span>
         <div id="buttons">
             <div id="keyboard-1" class="on">
-                <a class="button key">7</a><a class="button key">8</a><a class="button key">9</a><br>
-                <a class="button key">4</a><a class="button key">5</a><a class="button key">6</a><br>
-                <a class="button key">1</a><a class="button key">2</a><a class="button key">3</a><br>
-                <a class="button key">←</a><a class="button key">0</a><a class="button key">&crarr;</a>
+                <a class="button key n7">7</a><a class="button key n8">8</a><a class="button key n9">9</a><br>
+                <a class="button key n4">4</a><a class="button key n5">5</a><a class="button key n6">6</a><br>
+                <a class="button key n1">1</a><a class="button key n2">2</a><a class="button key n3">3</a><br>
+                <a class="button key nd">←</a><a class="button key n0">0</a><a class="button key nd">&crarr;</a>
             </div>
             <div id="keyboard-2">
-                <a class="button key">1</a><a class="button key">2</a><a class="button key">3</a><br>
-                <a class="button key">4</a><a class="button key">5</a><a class="button key">6</a><br>
-                <a class="button key">7</a><a class="button key">8</a><a class="button key">9</a><br>
-                <a class="button key">←</a><a class="button key">0</a><a class="button key">&crarr;</a>
+                <a class="button key n1">1</a><a class="button key n2">2</a><a class="button key n3">3</a><br>
+                <a class="button key n4">4</a><a class="button key n5">5</a><a class="button key n6">6</a><br>
+                <a class="button key n7">7</a><a class="button key n8">8</a><a class="button key n9">9</a><br>
+                <a class="button key nd">←</a><a class="button key n9">0</a><a class="button key nd">&crarr;</a>
             </div><br>
             <a id="press9" class="Highlight" style="font-size: 12pt;" onclick="onkey('Enter')">press enter or click to
                 restart</a><br>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,57 +26,72 @@
         firebase.initializeApp(firebaseConfig);
     </script>
 </head>
+
 <body>
     <h1>Ranking</h1>
     <table class="ranking">
         <tr>
-        <td class="setting-1">time</td>
-        <td class="setting-2"><select id="time" class="ranking" onchange="update_table()">
-            <option value="Infinity">all</option>
-            <option value="7">7 days before</option>
-            <option value="31">31 days before</option>
-            <option value="365">365 days before</option>
-        </select></td></tr><tr>
-        <td class="setting-1">category</td>
-        <td class="setting-2">
-        <select id="type" class="ranking" onchange="update_table()">
-            <optgroup label="Super">
-                <option value="0">Super</option>
-            </optgroup>
-            <optgroup label="type">
-                <option value="1">10</option>
-                <option value="2">100</option>
-                <option value="3">1000</option>
-                <option value="4">10000</option>
-            </optgroup>
-            <optgroup label="1 minute">
-                <option value="5">1 minute</option>
-            </optgroup>
-            <optgroup label="random">
-                <option value="6">10</option>
-                <option value="7">100</option>
-                <option value="8">1000</option>
-                <option value="9">10000</option>
-            </optgroup>
-        </select></td></tr><tr>
-        <td class="setting-1">sort</td>
-        <td class="setting-2">
-        <select id="sort" class="ranking" onchange="update_table()">
-            <option value="0">defalt</option>
-            <option value="1">TPS</option>
-        </select></td></tr><tr style="display: none;">
-        <td class="setting-1">filter</td>
-        <td class="setting-2"></td>
-        <select id="filter" class="ranking" onchange="update_table()">
-            <option value="">all</option>
-            <option value="pi">π</option>
-            <option value="gold">φ</option>
-        </select></td></tr>
+            <td class="setting-1">time</td>
+            <td class="setting-2"><select id="time" class="ranking" onchange="update_table()">
+                    <option value="Infinity">all</option>
+                    <option value="7">7 days before</option>
+                    <option value="31">31 days before</option>
+                    <option value="365">365 days before</option>
+                </select></td>
+        </tr>
+        <tr>
+            <td class="setting-1">category</td>
+            <td class="setting-2">
+                <select id="type" class="ranking" onchange="update_table()">
+                    <optgroup label="Super">
+                        <option value="0">Super</option>
+                    </optgroup>
+                    <optgroup label="type">
+                        <option value="1">10</option>
+                        <option value="2">100</option>
+                        <option value="3">500</option>
+                        <option value="4">1000</option>
+                        <option value="5">10000</option>
+                    </optgroup>
+                    <optgroup label="1 minute">
+                        <option value="6">1 minute</option>
+                    </optgroup>
+                    <optgroup label="random">
+                        <option value="7">10</option>
+                        <option value="8">100</option>
+                        <option value="9">500</option>
+                        <option value="10">1000</option>
+                        <option value="11">10000</option>
+                    </optgroup>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="setting-1">sort</td>
+            <td class="setting-2">
+                <select id="sort" class="ranking" onchange="update_table()">
+                    <option value="0">defalt</option>
+                    <option value="1">TPS</option>
+                </select>
+            </td>
+        </tr>
+        <tr style="display: none;">
+            <td class="setting-1">filter</td>
+            <td class="setting-2"></td>
+            <select id="filter" class="ranking" onchange="update_table()">
+                <option value="">all</option>
+                <option value="pi">π</option>
+                <option value="gold">φ</option>
+            </select></td>
+        </tr>
     </table>
     <table class="ranking">
         <thead id="thead">
             <tr class='ranking'>
-                <th class="ranking">Name</th><th class="ranking">TPS[type/s]</th><th class="ranking">Time</th><th class="ranking">Date</th>
+                <th class="ranking">Name</th>
+                <th class="ranking">TPS[type/s]</th>
+                <th class="ranking">Time</th>
+                <th class="ranking">Date</th>
             </tr>
         </thead>
         <tbody id="tbody"></tbody>
@@ -87,138 +103,139 @@
             if (!queryStr) {
                 return queries;
             }
-            queryStr.split('&').forEach(function(queryStr) {
+            queryStr.split('&').forEach(function (queryStr) {
                 var queryArr = queryStr.split('=');
                 queries[queryArr[0]] = queryArr[1];
             });
             return queries;
         }
-        var Q = getUrlQueries()
-        if ("category" in Q){
-            document.getElementById("type").value = Q.category
+        var Q = getUrlQueries();
+        if ("category" in Q) {
+            document.getElementById("type").value = Q.category;
         }
-        var type = 0
-        var html = ""
-        var datas = [[],[],[],[],[],[]]
-        var aaaaaaa = ["",10,100,1000,10000,"","","","",""]
-        var dataa = [firebase.database().ref().child('endress'),firebase.database().ref().child('count/10'),firebase.database().ref().child('count/100'),firebase.database().ref().child('count/1000'),firebase.database().ref().child('count/10000'),firebase.database().ref().child('1minute'),firebase.database().ref().child('random/10'),firebase.database().ref().child('random/100'),firebase.database().ref().child('random/1000'),firebase.database().ref().child('random/10000')]
-        update_table()
-        if (firebase.auth().currentUser == null){
-            firebase.auth().signInWithEmailAndPassword("noreply@speed-pi-database.firebaseapp.com","0123456789abcdefghijklmnopqrstuvwxyz")
-            dataa.forEach((value,index) => {
-                value.on("child_added",(val) => {
-                    datas[index].push(val.val())
-                    update_table()
-                })
-            })
-        }else{
-            dataa.forEach((value,index) => {
-                value.on("child_added",(val) => {
-                    datas[index].push(val.val())
-                    update_table()
-                })
-            })
+        var type = 0;
+        var html = "";
+        var aaaaaaa = ["", 10, 100, 500, 1000, 10000, "", "", "", "", "", ""];
+        var datas = aaaaaaa.map((value) => {return []});
+        var dataa = [firebase.database().ref().child('endress'), firebase.database().ref().child('count/10'), firebase.database().ref().child('count/100'), firebase.database().ref().child('count/500'), firebase.database().ref().child('count/1000'), firebase.database().ref().child('count/10000'), firebase.database().ref().child('1minute'), firebase.database().ref().child('random/10'), firebase.database().ref().child('random/100'), firebase.database().ref().child('random/500'), firebase.database().ref().child('random/1000'), firebase.database().ref().child('random/10000')];
+        update_table();
+        if (firebase.auth().currentUser == null) {
+            firebase.auth().signInWithEmailAndPassword("noreply@speed-pi-database.firebaseapp.com", "0123456789abcdefghijklmnopqrstuvwxyz");
+            dataa.forEach((value, index) => {
+                value.on("child_added", (val) => {
+                    datas[index].push(val.val());
+                    update_table();
+                });
+            });
+        } else {
+            dataa.forEach((value, index) => {
+                value.on("child_added", (val) => {
+                    datas[index].push(val.val());
+                    update_table();
+                });
+            });
         }
-        function update_table(){
-            type = document.getElementById("type").value
-            if (Number(type) > 0 && Number(type) < 5){
+        function update_table() {
+            type = document.getElementById("type").value;
+            if (Number(type) > 0 && Number(type) < 6) {
                 document.getElementById("thead").innerHTML = `<tr class='ranking'>
                 <th class="ranking">Rank</th><th class="ranking">Name</th><th class="ranking">TPS[type/s]</th><th class="ranking">Time</th><th class="ranking">Date</th>
-            </tr>`
-                html = ""
-                datas[type].sort((a,b) => {
-                    if (document.getElementById("sort").value == "0"){
-                        return a.time - b.time
-                    }else{
-                        return (-aaaaaaa[type] / a.time) + aaaaaaa[type] / b.time
+            </tr>`;
+                html = "";
+                datas[type].sort((a, b) => {
+                    if (document.getElementById("sort").value == "0") {
+                        return a.time - b.time;
+                    } else {
+                        return (-aaaaaaa[type] / a.time) + aaaaaaa[type] / b.time;
                     }
-                })
-                a = 1
-                datas[type].forEach((value,index) => {
-                    if (document.getElementById("filter").value == "" || document.getElementById("filter").value == value.type){
-                        if ((new Date() - new Date(value.date)) / (1000*60*60*24) <= Number(document.getElementById("time").value)){
-                            html += "<tr class='ranking'><td class='ranking'>No." + a + "</td><td class='ranking'>" + value.name + "</td><td class='ranking'>" + (aaaaaaa[type] / (value.time/1000)).toFixed(2) + "</td><td class='ranking'>" + (value.time/1000).toFixed(3) + "s</td><td class='ranking'>" + new Date(value.date).toLocaleString() + "</td></tr>"
-                            a += 1
+                });
+                a = 1;
+                datas[type].forEach((value, index) => {
+                    if (document.getElementById("filter").value == "" || document.getElementById("filter").value == value.type) {
+                        if ((new Date() - new Date(value.date)) / (1000 * 60 * 60 * 24) <= Number(document.getElementById("time").value)) {
+                            html += "<tr class='ranking'><td class='ranking'>No." + a + "</td><td class='ranking'>" + value.name + "</td><td class='ranking'>" + (aaaaaaa[type] / (value.time / 1000)).toFixed(2) + "</td><td class='ranking'>" + (value.time / 1000).toFixed(3) + "s</td><td class='ranking'>" + new Date(value.date).toLocaleString() + "</td></tr>";
+                            a += 1;
                         }
                     }
-                })
-                document.getElementById("tbody").innerHTML = html
-            }else if (type == 0){
+                });
+                document.getElementById("tbody").innerHTML = html;
+            } else if (type == 0) {
                 document.getElementById("thead").innerHTML = `<tr class='ranking'>
                 <th class="ranking">Rank</th><th class="ranking">Name</th><th class="ranking">Score</th><th class="ranking">TPS[type/s]</th><th class="ranking">Time</th><th class="ranking">Date</th>
-            </tr>`
-                html = ""
-                datas[type].sort((a,b) => {
-                    if (document.getElementById("sort").value == "0"){
-                        if (a.score == b.score){
-                            return a.time - b.time
-                        }else{
-                            return b.score - a.score
+            </tr>`;
+                html = "";
+                datas[type].sort((a, b) => {
+                    if (document.getElementById("sort").value == "0") {
+                        if (a.score == b.score) {
+                            return a.time - b.time;
+                        } else {
+                            return b.score - a.score;
                         }
-                    }else if (document.getElementById("sort").value == "1"){
-                        return (-a.score / a.time) + b.score / b.time
+                    } else if (document.getElementById("sort").value == "1") {
+                        return (-a.score / a.time) + b.score / b.time;
                     }
-                })
-                var a = 1
-                datas[type].forEach((value,index) => {
-                    if (document.getElementById("filter").value == "" || document.getElementById("filter").value == value.type){
-                        if ((new Date() - new Date(value.date)) / (1000*60*60*24) <= Number(document.getElementById("time").value)){
-                            html += "<tr class='ranking'><td class='ranking'>No." + a + "</td><td class='ranking'>" + value.name + "</td><td class='ranking'>" + value.score + "</td><td class='ranking'>" + (value.score / (value.time/1000)).toFixed(2) + "</td><td class='ranking'>" + (value.time/1000).toFixed(3) + "s</td><td class='ranking'>" + new Date(value.date).toLocaleString() + "</td></tr>"
-                            a += 1
+                });
+                var a = 1;
+                datas[type].forEach((value, index) => {
+                    if (document.getElementById("filter").value == "" || document.getElementById("filter").value == value.type) {
+                        if ((new Date() - new Date(value.date)) / (1000 * 60 * 60 * 24) <= Number(document.getElementById("time").value)) {
+                            html += "<tr class='ranking'><td class='ranking'>No." + a + "</td><td class='ranking'>" + value.name + "</td><td class='ranking'>" + value.score + "</td><td class='ranking'>" + (value.score / (value.time / 1000)).toFixed(2) + "</td><td class='ranking'>" + (value.time / 1000).toFixed(3) + "s</td><td class='ranking'>" + new Date(value.date).toLocaleString() + "</td></tr>";
+                            a += 1;
                         }
                     }
-                })
-                document.getElementById("tbody").innerHTML = html
-            }else if (Number(type) > 5 && Number(type) < 10){
+                });
+                document.getElementById("tbody").innerHTML = html;
+            } else if (Number(type) > 6 && Number(type) < 12) {
                 document.getElementById("thead").innerHTML = `<tr class='ranking'>
                 <th class="ranking">Rank</th><th class="ranking">Name</th><th class="ranking">TPS[type/s]</th><th class="ranking">Time</th><th class="ranking">Date</th>
-            </tr>`
-                html = ""
-                datas[type].sort((a,b) => {
-                    if (document.getElementById("sort").value == "0"){
-                        return a.time - b.time
-                    }else{
-                        return (-aaaaaaa[type] / a.time) + aaaaaaa[type] / b.time
+            </tr>`;
+                html = "";
+                datas[type].sort((a, b) => {
+                    if (document.getElementById("sort").value == "0") {
+                        return a.time - b.time;
+                    } else {
+                        return (-aaaaaaa[type] / a.time) + aaaaaaa[type] / b.time;
                     }
-                })
-                a = 1
-                datas[type].forEach((value,index) => {
-                    if (document.getElementById("filter").value == "" || document.getElementById("filter").value == value.type){
-                        if ((new Date() - new Date(value.date)) / (1000*60*60*24) <= Number(document.getElementById("time").value)){
-                            html += "<tr class='ranking'><td class='ranking'>No." + a + "</td><td class='ranking'>" + value.name + "</td><td class='ranking'>" + (aaaaaaa[type] / (value.time/1000)).toFixed(2) + "</td><td class='ranking'>" + (value.time/1000).toFixed(3) + "s</td><td class='ranking'>" + new Date(value.date).toLocaleString() + "</td></tr>"
-                            a += 1
+                });
+                a = 1;
+                datas[type].forEach((value, index) => {
+                    if (document.getElementById("filter").value == "" || document.getElementById("filter").value == value.type) {
+                        if ((new Date() - new Date(value.date)) / (1000 * 60 * 60 * 24) <= Number(document.getElementById("time").value)) {
+                            html += "<tr class='ranking'><td class='ranking'>No." + a + "</td><td class='ranking'>" + value.name + "</td><td class='ranking'>" + (5 / (value.time / 1000)).toFixed(2) + "</td><td class='ranking'>" + (value.time / 1000).toFixed(3) + "s</td><td class='ranking'>" + new Date(value.date).toLocaleString() + "</td></tr>";
+                            a += 1;
                         }
                     }
-                })
-                document.getElementById("tbody").innerHTML = html
-            }else{
+                });
+                document.getElementById("tbody").innerHTML = html;
+            } else {
                 document.getElementById("thead").innerHTML = `<tr class='ranking'>
                 <th class="ranking">Rank</th><th class="ranking">Name</th><th class="ranking">Score</th><th class="ranking">TPS[type/s]</th><th class="ranking">Date</th>
-            </tr>`
-                html = ""
-                datas[type].sort((a,b) => {
-                    if (document.getElementById("sort").value == "0"){
-                        if (a.score == b.score){
-                            return a.time - b.time
-                        }else{
-                            return b.score - a.score
+            </tr>`;
+                html = "";
+                datas[type].sort((a, b) => {
+                    if (document.getElementById("sort").value == "0") {
+                        if (a.score == b.score) {
+                            return a.time - b.time;
+                        } else {
+                            return b.score - a.score;
                         }
-                    }else if (document.getElementById("sort").value == "1"){
-                        return (-a.score / a.time) + b.score / b.time
+                    } else if (document.getElementById("sort").value == "1") {
+                        return (-a.score / a.time) + b.score / b.time;
                     }
-                })
-                var a = 1
-                datas[type].forEach((value,index) => {
-                    if (document.getElementById("filter").value == "" || document.getElementById("filter").value == value.type){
-                        if ((new Date() - new Date(value.date)) / (1000*60*60*24) <= Number(document.getElementById("time").value)){
-                            html += "<tr class='ranking'><td class='ranking'>No." + a + "</td><td class='ranking'>" + value.name + "</td><td class='ranking'>" + value.score + "</td><td class='ranking'>" + (value.score / 60).toFixed(2) + "</td><td class='ranking'>" + new Date(value.date).toLocaleString() + "</td></tr>"
-                            a += 1
+                });
+                var a = 1;
+                datas[type].forEach((value, index) => {
+                    if (document.getElementById("filter").value == "" || document.getElementById("filter").value == value.type) {
+                        if ((new Date() - new Date(value.date)) / (1000 * 60 * 60 * 24) <= Number(document.getElementById("time").value)) {
+                            html += "<tr class='ranking'><td class='ranking'>No." + a + "</td><td class='ranking'>" + value.name + "</td><td class='ranking'>" + value.score + "</td><td class='ranking'>" + (value.score / 60).toFixed(2) + "</td><td class='ranking'>" + new Date(value.date).toLocaleString() + "</td></tr>";
+                            a += 1;
                         }
                     }
-                })
-                document.getElementById("tbody").innerHTML = html
+                });
+                document.getElementById("tbody").innerHTML = html;
             }
         }
     </script>
 </body>
+
 </html>

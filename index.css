@@ -1,15 +1,19 @@
-@keyframes Highlight_{
-    0%{
+@keyframes Highlight_ {
+    0% {
         color: rgb(19, 19, 19);
     }
-    50%{
+
+    50% {
         color: white;
     }
-    100%{
+
+    100% {
         color: rgb(19, 19, 19);
     }
 }
-html,body{
+
+html,
+body {
     user-select: none;
     -ms-user-select: none;
     -moz-user-select: none;
@@ -22,21 +26,36 @@ html,body{
     text-align: center;
     font-family: Consolas, 'Courier New', monospace;
 }
-*::-webkit-scrollbar{
+#pi2{
+    color: white;
+}
+#pi2.Classic{
+    color: black !important;
+}
+html.Classic,
+body.Classic{
+    color: black;
+    background-color: white;
+}
+*::-webkit-scrollbar {
     width: 10px;
     background-color: rgba(0, 0, 0, 0);
 }
+
 *::-webkit-scrollbar-track-piece {
     background-color: rgba(0, 0, 0, 0);
 }
-*::-webkit-scrollbar-thumb{
+
+*::-webkit-scrollbar-thumb {
     background-color: rgba(114, 114, 114, 0.452);
 }
-*{
+
+* {
     scrollbar-width: thin;
     scrollbar-color: #c0c0c073 rgba(228, 228, 228, 0);
 }
-.button{
+
+.button {
     border-radius: 5px;
     padding: 5px;
     padding-left: 10px;
@@ -46,10 +65,12 @@ html,body{
     background-color: white;
     cursor: pointer;
 }
-.mask{
+
+.mask {
     position: fixed;
 }
-.mask.on{
+
+.mask.on {
     position: fixed;
     z-index: 99999999999999999999998;
     top: 0;
@@ -58,10 +79,12 @@ html,body{
     height: 100%;
     background-color: rgba(0, 0, 0, 0.4);
 }
-.dialog{
+
+.dialog {
     display: none;
 }
-.dialog.on{
+
+.dialog.on {
     position: fixed;
     z-index: 99999999999999999999999;
     width: 80%;
@@ -71,7 +94,8 @@ html,body{
     transform: translate(-50%, -50%);
     display: block;
 }
-.dialog-main{
+
+.dialog-main {
     color: black;
     display: block;
     position: fixed;
@@ -85,7 +109,8 @@ html,body{
     background-color: white;
     overflow-y: scroll;
 }
-.dialog-head{
+
+.dialog-head {
     color: black;
     text-align: left;
     display: block;
@@ -97,11 +122,13 @@ html,body{
     border-top-right-radius: 5px;
     background-color: white;
 }
-.switch{
+
+.switch {
     display: none;
     margin: 0;
 }
-.switch + label::before{
+
+.switch+label::before {
     content: " ";
     position: absolute;
     display: inline-block;
@@ -113,7 +140,8 @@ html,body{
     cursor: pointer;
     transition: box-shadow 0.25s;
 }
-.switch:checked + label::before{
+
+.switch:checked+label::before {
     content: " ";
     position: absolute;
     display: inline-block;
@@ -123,7 +151,8 @@ html,body{
     box-shadow: inset 0px 0px 0px -10px rgb(87, 87, 87);
     border-radius: 11px;
 }
-.switch + label::after{
+
+.switch+label::after {
     content: " ";
     position: relative;
     display: inline-block;
@@ -136,7 +165,8 @@ html,body{
     border-radius: 11px;
     transition: left 0.25s;
 }
-.switch:checked + label::after{
+
+.switch:checked+label::after {
     content: " ";
     position: relative;
     display: inline-block;
@@ -146,25 +176,30 @@ html,body{
     left: 25px;
     border-radius: 11px;
 }
-.switch:disabled + label::after{
+
+.switch:disabled+label::after {
     background-color: #b9b9b9;
 }
-table{
+
+table {
     border-spacing: 0;
 }
-.setting-1{
+
+.setting-1 {
     text-align: right;
     width: 47%;
     padding-right: 3%;
     font-size: 15pt;
 }
-.setting-2{
+
+.setting-2 {
     text-align: left;
     width: 47%;
     padding-left: 3%;
     font-size: 15pt;
 }
-.button.key{
+
+.button.key {
     width: 30px;
     height: 30px;
     line-height: 30px;
@@ -172,7 +207,8 @@ table{
     box-shadow: 5px 5px 0 black;
     padding: 5px;
 }
-#buttons{
+
+#buttons {
     position: absolute;
     left: 50%;
     right: 50%;
@@ -180,65 +216,195 @@ table{
     transform: translate(-50%, -50%);
     top: 480px;
 }
-#keyboard-1{
+
+#keyboard-1 {
     display: none;
 }
-#keyboard-1.on{
+
+#keyboard-1.on {
     display: block;
 }
-#keyboard-2{
+
+#keyboard-2 {
     display: none;
 }
-#keyboard-2.on{
+
+#keyboard-2.on {
     display: block;
 }
-select{
+
+select {
     border-radius: 5px;
     max-width: 300px;
     width: 90%;
     height: 30px;
 }
-#pi{
+
+#pi {
     font-size: 30px;
-    background: linear-gradient(to right,rgb(19, 19, 19),white);
+    background: linear-gradient(to right, rgb(19, 19, 19), white);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     width: 18pc;
     text-align: center;
     white-space: nowrap;
 }
-table.ranking{
+
+#pi.Classic {
+    font-size: 30px;
+    background: linear-gradient(to right, white, rgb(19, 19, 19));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    width: 18pc;
+    text-align: center;
+    white-space: nowrap;
+}
+table.ranking {
     margin-left: auto;
     margin-right: auto;
     width: 100%;
 }
-th.ranking{
+
+th.ranking {
     border-bottom: solid 1px rgb(46, 46, 46);
     font-weight: 900;
 }
-td.ranking{
+
+td.ranking {
     border-bottom: solid 1px rgb(46, 46, 46);
 }
-tbody tr.ranking:nth-child(2n+1){
+
+tbody tr.ranking:nth-child(2n+1) {
     background-color: rgb(32, 32, 32);
 }
-input{
-    background-color: rgba(0, 0, 0,0);
+
+input {
+    background-color: rgba(0, 0, 0, 0);
     max-width: 300px;
     width: 90%;
     color: black;
     border: solid rgb(100, 100, 100) 1px;
     outline: none;
 }
-select.ranking{
+
+select.ranking {
     background-color: rgb(19, 19, 19);
     color: white;
 }
-.button.color-inversion{
+
+.button.color-inversion {
     background-color: rgb(26, 26, 26);
     color: white;
 }
-.Highlight{
+
+.button.color-inversion {
+    color: white;
+    background-color: #131313;
+}
+.Highlight {
     cursor: pointer;
     animation: Highlight_ 1s ease infinite;
+}
+.button.key.Classic{
+    box-shadow: none;
+    border-radius: 0px;
+    padding: 10px;
+    background-size: contain;
+    color: rgba(0, 0, 0, 0);
+}
+.button.Classic{
+    color: white;
+    background-color: #131313;
+}
+.button.Classic.n0 {
+    background-image: url("./img/0.png");
+    background-color: white;
+    width: 35px;
+    height: 35px;
+    padding: 0px;
+    margin: 3px;
+}
+.button.Classic.n1 {
+    background-image: url("./img/1.png");
+    background-color: white;
+    width: 35px;
+    height: 35px;
+    padding: 0px;
+    margin: 3px;
+}
+.button.Classic.n2 {
+    background-image: url("./img/2.png");
+    background-color: white;
+    width: 35px;
+    height: 35px;
+    padding: 0px;
+    margin: 3px;
+}
+.button.Classic.n3 {
+    background-image: url("./img/3.png");
+    background-color: white;
+    width: 35px;
+    height: 35px;
+    padding: 0px;
+    margin: 3px;
+}
+.button.Classic.n4 {
+    background-image: url("./img/4.png");
+    background-color: white;
+    width: 35px;
+    height: 35px;
+    padding: 0px;
+    margin: 3px;
+}
+.button.Classic.n5 {
+    background-image: url("./img/5.png");
+    background-color: white;
+    width: 35px;
+    height: 35px;
+    padding: 0px;
+    margin: 3px;
+}
+.button.Classic.n6 {
+    background-image: url("./img/6.png");
+    background-color: white;
+    width: 35px;
+    height: 35px;
+    padding: 0px;
+    margin: 3px;
+}
+.button.Classic.n7 {
+    background-image: url("./img/7.png");
+    background-color: white;
+    width: 35px;
+    height: 35px;
+    padding: 0px;
+    margin: 3px;
+}
+.button.Classic.n8 {
+    background-image: url("./img/8.png");
+    background-color: white;
+    width: 35px;
+    height: 35px;
+    padding: 0px;
+    margin: 3px;
+}
+.button.Classic.n9 {
+    background-image: url("./img/9.png");
+    background-color: white;
+    width: 35px;
+    height: 35px;
+    padding: 0px;
+    margin: 3px;
+}
+.button.Classic.nd {
+    display: none;
+}
+#timer.Classic{
+    background-color: aliceblue;
+    width: 400px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
