@@ -535,9 +535,6 @@ function timer() {
         document.getElementById("pi2").style.display = "";
     }
     if (document.getElementById("content").value == "random") {
-        document.getElementById("pi").style.background = "rgba(0,0,0,0)";
-        document.getElementById("pi").style.color = "white";
-        document.getElementById("pi").style.webkitTextFillColor = "white";
     }
     if (load == true) {
         canvas.width = 200 * window.devicePixelRatio;

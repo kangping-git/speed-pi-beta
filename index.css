@@ -214,7 +214,7 @@ table {
     right: 50%;
     width: 100%;
     transform: translate(-50%, -50%);
-    top: 600px;
+    top: 570px;
 }
 
 #keyboard-1 {
@@ -320,80 +320,80 @@ select.ranking {
 .button.Classic.n0 {
     background-image: url("./img/0.webp");
     background-color: white;
-    width: 35px;
-    height: 35px;
+    width: 50px;
+    height: 50px;
     padding: 0px;
     margin: 3px;
 }
 .button.Classic.n1 {
     background-image: url("./img/1.webp");
     background-color: white;
-    width: 35px;
-    height: 35px;
+    width: 50px;
+    height: 50px;
     padding: 0px;
     margin: 3px;
 }
 .button.Classic.n2 {
     background-image: url("./img/2.webp");
     background-color: white;
-    width: 35px;
-    height: 35px;
+    width: 50px;
+    height: 50px;
     padding: 0px;
     margin: 3px;
 }
 .button.Classic.n3 {
     background-image: url("./img/3.webp");
     background-color: white;
-    width: 35px;
-    height: 35px;
+    width: 50px;
+    height: 50px;
     padding: 0px;
     margin: 3px;
 }
 .button.Classic.n4 {
     background-image: url("./img/4.webp");
     background-color: white;
-    width: 35px;
-    height: 35px;
+    width: 50px;
+    height: 50px;
     padding: 0px;
     margin: 3px;
 }
 .button.Classic.n5 {
     background-image: url("./img/5.webp");
     background-color: white;
-    width: 35px;
-    height: 35px;
+    width: 50px;
+    height: 50px;
     padding: 0px;
     margin: 3px;
 }
 .button.Classic.n6 {
     background-image: url("./img/6.webp");
     background-color: white;
-    width: 35px;
-    height: 35px;
+    width: 50px;
+    height: 50px;
     padding: 0px;
     margin: 3px;
 }
 .button.Classic.n7 {
     background-image: url("./img/7.webp");
     background-color: white;
-    width: 35px;
-    height: 35px;
+    width: 50px;
+    height: 50px;
     padding: 0px;
     margin: 3px;
 }
 .button.Classic.n8 {
     background-image: url("./img/8.webp");
     background-color: white;
-    width: 35px;
-    height: 35px;
+    width: 50px;
+    height: 50px;
     padding: 0px;
     margin: 3px;
 }
 .button.Classic.n9 {
     background-image: url("./img/9.webp");
     background-color: white;
-    width: 35px;
-    height: 35px;
+    width: 50px;
+    height: 50px;
     padding: 0px;
     margin: 3px;
 }
