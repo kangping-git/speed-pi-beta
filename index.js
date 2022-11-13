@@ -566,7 +566,7 @@ function timer() {
     } else {
         document.getElementById("load").style.display = "none";
         document.getElementById("main").style.display = "";
-        if (document.getElementById("content").value == "count") {
+        if (document.getElementById("content").value == "count" && document.getElementById("design").value == "Default") {
             document.getElementById("input-split").disabled = "";
         } else {
             document.getElementById("input-split").disabled = "true";
