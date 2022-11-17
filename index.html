@@ -123,6 +123,24 @@
                     <a class="button color-inversion" onclick="close_dialog('aaa')">close</a>
                 </div>
             </div>
+            <div class="dialog" data-name="bbb">
+                <div class="dialog-head" onmouseover="javascript:on_up = true" onmouseleave="javascript:on_up = false">
+                    PI
+                    <a style="position: absolute;top: 10px;right: 10px;font-size: 10pt;cursor: pointer;"
+                        onclick="close_dialog('bbb')">x</a>
+                </div>
+                <div class="dialog-main">
+                    <div style="height: calc(90% - 50px);">
+                        <a class="button color-inversion" onclick="NextPi(-1000)">-1000</a>
+                        <a id="keta">1~1000</a>
+                        <a class="button color-inversion" onclick="NextPi(1000)">+1000</a><br>
+                        <a id="PII"></a>
+                        No.<input id="keta222" type="number" onchange="findPi()"><br>
+                        <a id="PIII"></a>
+                    </div>
+                    <a class="button color-inversion" onclick="close_dialog('bbb')">close</a>
+                </div>
+            </div>
         </div>
         <h1 id="timer">00:00.000</h1>
         <a id="pi"></a><br>
@@ -148,6 +166,7 @@
             <a id="press9" class="Highlight" style="font-size: 12pt;" onclick="onkey('Enter')">press enter or click to
                 restart</a><br>
             <a class="button" onclick="open_dialog('aaa')" id="setting_button">setting</a><br><br>
+            <a class="button" onclick="open_dialog('bbb')" id="PID">pi</a><br><br>
             <a style="text-decoration:none;" rel="noopener" target="_blank" href="./ranking.html" id="ranking_link"
                 class="button">ranking</a>
         </div>

@@ -419,6 +419,13 @@ let a = 0;
 function load_file() {
     return fetch("https://api.pi.delivery/v1/pi?start=" + (a * 1000 + 1) + "&numberOfDigits=1000");
 }
+function load_file2(A) {
+    if (A > 10){
+        return fetch("https://api.pi.delivery/v1/pi?start=" + (A-10) + "&numberOfDigits=21");
+    }else{
+        return fetch("https://api.pi.delivery/v1/pi?start=" + 0 + "&numberOfDigits=21");
+    }
+}
 const canvas = document.getElementById('loader');
 canvas.style.width = "200px";
 canvas.style.height = "200px";
@@ -434,6 +441,43 @@ window.onmouseup = function (e) {
 };
 for (var i = 0; i < 360; i += 30) {
     circles.push(i);
+}
+let Keta = 0
+function findPi(){
+    let Keta = document.getElementById("keta222").value;
+    (async() => {
+        A = await load_file2(Keta);
+        A = await A.json();
+        if (Keta > 10){
+            document.getElementById("PIII").innerHTML = A.content.slice(0,10) + "<a style='font-size: 20pt;'>" + A.content[10] + "</a>" + A.content.slice(11)
+        }else{
+            document.getElementById("PIII").innerHTML = "3." + A.content.slice(1,Keta) + "<a style='font-size: 20pt;'>" + A.content[Keta] + "</a>" + A.content.slice(Keta)
+        }
+    })()
+}
+function NextPi(A){
+    Keta += A
+    if (Keta < 0){
+        Keta = 0
+    }
+    document.getElementById("keta").innerText = `${Keta + 1}~${Keta + 1000}`
+    document.getElementById("PII").innerHTML = pi_data.slice(Keta,Keta+1000).map((value,index) => {
+        if (index % 100 == 99){
+            return value + "<br>"
+        }else if (index % 10 == 9){
+            return value + " "
+        }else{
+            return value
+        }
+    }).join("")
+    if (Keta >= a*1000 - 10000){
+        (async() => {
+            A = await load_file();
+            A = await A.json();
+            pi_data.push(...A.content.split(""));
+            ++a;
+        })()
+    }
 }
 const ctx = canvas.getContext('2d');
 timer();
@@ -606,9 +650,11 @@ function timer() {
                 document.getElementById("timer").style.visibility = "";
             }
             document.getElementById("setting_button").style.display = "none";
+            document.getElementById("PID").style.display = "none";
         } else {
             document.getElementById("timer").style.visibility = "";
             document.getElementById("setting_button").style.display = start == null || start == "nulla" ? "none" : "";
+            document.getElementById("PID").style.display = start == null || start == "nulla" ? "none" : "";
         }
         if (start == null) {
             document.getElementById("press9").style.display = "";
@@ -689,4 +735,5 @@ update_tenkey();
         ++a;
     }
     load = false;
+    NextPi(0)
 })();
